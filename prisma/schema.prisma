@@ -1,0 +1,52 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("PRISMA_DATABASE_URL") // uses connection pooling
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String
+  teamPlayers TeamPlayer[]
+}
+
+model Team {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  teamPlayers TeamPlayer[]
+  matchesAsTeam1 Match[] @relation("Team1")
+  matchesAsTeam2 Match[] @relation("Team2")
+}
+
+model TeamPlayer {
+  id        Int      @id @default(autoincrement())
+  team      Team     @relation(fields: [teamId], references: [id])
+  teamId    Int
+  player    Player   @relation(fields: [playerId], references: [id])
+  playerId  Int
+}
+
+model Match {
+  id          Int      @id @default(autoincrement())
+  team1       Team     @relation("Team1", fields: [team1Id], references: [id])
+  team1Id     Int
+  team2       Team     @relation("Team2", fields: [team2Id], references: [id])
+  team2Id     Int
+  scoreTeam1  Int
+  scoreTeam2  Int
+  matchDate   DateTime
+}
+
+model User {
+  id            String       @default(cuid()) @id
+  name          String?
+  email         String?   @unique
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  @@map(name: "users")
+}
