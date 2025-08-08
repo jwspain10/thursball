@@ -2,12 +2,32 @@ import prisma from "../lib/prisma";
 
 async function main() {
   // Create Players
-  const players = await prisma.player.createMany({
+  await prisma.player.createMany({
     data: [
-      { name: "Alice" },
-      { name: "Bob" },
-      { name: "Charlie" },
-      { name: "Dave" },
+      {
+        name: "Alice",
+        dob: new Date("1990-01-01"),
+        nationality: "IE",
+        isActive: true,
+      },
+      {
+        name: "Bob",
+        dob: new Date("1989-01-02"),
+        nationality: "IT",
+        isActive: true,
+      },
+      {
+        name: "Charlie",
+        dob: new Date("1991-05-28"),
+        nationality: "DE",
+        isActive: true,
+      },
+      {
+        name: "Dave",
+        dob: new Date("2000-12-27"),
+        nationality: "ES",
+        isActive: true,
+      },
     ],
   });
 

@@ -1,6 +1,7 @@
 import { BackButton } from "@/components/BackButton";
 import prisma from "../../../../../lib/prisma";
 import { Params } from "@/app/types";
+import PlayerForm from "../../PlayerForm";
 
 export default async function EditPlayerPage({ params }: { params: Params }) {
   const { id } = await params;
@@ -9,11 +10,20 @@ export default async function EditPlayerPage({ params }: { params: Params }) {
     where: { id: +id },
   });
 
+  const defaultValues = player
+    ? {
+        name: player.name ?? "",
+        dob: player.dob ?? "",
+        nationality: player.nationality ?? "",
+        isActive: player.isActive ?? false,
+      }
+    : null;
+
   return (
     <div>
       <h2>{player?.name}</h2>
       <BackButton />
-      <div>Edit Player page</div>
+      <PlayerForm defaultValues={defaultValues} />
     </div>
   );
 }

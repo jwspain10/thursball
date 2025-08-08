@@ -1,5 +1,6 @@
 import React from "react";
+import PlayerForm from "../PlayerForm";
 
-export default async function AddPlayerPage() {
-  return <div>Add player page here</div>;
+export default function AddPlayerPage() {
+  return <PlayerForm />;
 }
