@@ -1,5 +1,5 @@
-import { BackButton } from "@/components/BackButton";
 import React from "react";
+import { SubHeader } from "@/components/SubHeader";
 
 interface Props {
   children: React.ReactNode;
@@ -8,8 +8,7 @@ interface Props {
 export default function AddPlayerLayout({ children }: Props) {
   return (
     <div>
-      <BackButton />
-      <h2>Add Player</h2>
+      <SubHeader goBack>Add Player</SubHeader>
       {children}
     </div>
   );

@@ -2,14 +2,15 @@
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-// import "@mantine/forms/styles.css";
-// import "@mantine/modals/styles.css";
+import "@mantine/notifications/styles.css";
 
 import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
+import { ModalsProvider } from "@mantine/modals";
 import { AppLayout } from "@/components/AppLayout";
 
 export const metadata = {
@@ -29,7 +30,10 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider>
-          <AppLayout>{children}</AppLayout>
+          <Notifications />
+          <ModalsProvider>
+            <AppLayout>{children}</AppLayout>
+          </ModalsProvider>
         </MantineProvider>
       </body>
     </html>
