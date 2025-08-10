@@ -14,6 +14,7 @@ import { notifications } from "@mantine/notifications";
 
 export default function EditPlayerPage() {
   const [player, setPlayer] = useState<IPlayer | null>(null);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 
@@ -24,6 +25,9 @@ export default function EditPlayerPage() {
       })
       .catch((error) => {
         console.error("Error fetching player:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [id]);
 
@@ -35,6 +39,7 @@ export default function EditPlayerPage() {
   };
 
   const onSubmit = (data: IPlayer) => {
+    setLoading(true);
     updatePlayer(id, data)
       .then(() => {
         notifications.show({
@@ -46,6 +51,7 @@ export default function EditPlayerPage() {
       })
       .catch((error) => {
         console.error("client error", error);
+        setLoading(false);
         notifications.show({
           title: "Error",
           message: `Something went wrong while updating the player: ${error.message}`,
@@ -55,6 +61,7 @@ export default function EditPlayerPage() {
   };
 
   const onDelete = async () => {
+    setLoading(true);
     await deletePlayer(id)
       .then(() => {
         notifications.show({
@@ -62,10 +69,12 @@ export default function EditPlayerPage() {
           message: "Player deleted successfully",
           color: "green",
         });
+
         router.push("/players");
       })
       .catch((error) => {
         console.error("client error", error);
+        setLoading(false);
         notifications.show({
           title: "Oops",
           message: `Something went wrong while updating the player: ${error.message}`,
@@ -77,16 +86,22 @@ export default function EditPlayerPage() {
   return (
     <div>
       <SubHeader goBack>Edit Player</SubHeader>
-      <PlayerForm defaultValues={defaultValues} onSubmit={onSubmit} />
-      <CustomModal
-        title="Delete Player"
-        button={<Button color="red">Delete Player</Button>}
-      >
-        Are you sure you want to delete this player?
-        <Button color="red" onClick={onDelete}>
-          Delete
-        </Button>
-      </CustomModal>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <PlayerForm defaultValues={defaultValues} onSubmit={onSubmit} />
+          <CustomModal
+            title="Delete Player"
+            button={<Button color="red">Delete Player</Button>}
+          >
+            Are you sure you want to delete this player?
+            <Button color="red" onClick={onDelete}>
+              Delete
+            </Button>
+          </CustomModal>
+        </div>
+      )}
     </div>
   );
 }
