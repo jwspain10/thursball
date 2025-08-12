@@ -17,7 +17,7 @@ export default async function MatchesPage() {
         const { id, matchDate, team1, team2, scoreTeam1, scoreTeam2 } = match;
         return (
           <div key={id}>
-            {team1.id} - {scoreTeam1} vs {scoreTeam2} - {team2.id} -{" "}
+            {team1.name} - {scoreTeam1} vs {scoreTeam2} - {team2.name} -{" "}
             {matchDate.toLocaleDateString()}
             <LinkButton link={`/matches/${match.id}`} label="View" />
           </div>

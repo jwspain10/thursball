@@ -9,7 +9,7 @@ export default async function PlayerPage({ params }: { params: Params }) {
   const { id } = await params;
 
   const player = await prisma.player.findUnique({
-    where: { id: +id },
+    where: { id },
   });
 
   const birthday = new Date(player?.dob || "");

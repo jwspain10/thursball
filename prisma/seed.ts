@@ -1,77 +1,110 @@
-import prisma from "../lib/prisma";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+// generate random strings
+const genString = (start: number, end: number) =>
+  Math.random().toString(36).substring(start, end);
 
 async function main() {
-  // Create Players
-  await prisma.player.createMany({
-    data: [
-      {
-        name: "Alice",
-        dob: new Date("1990-01-01"),
-        nationality: "IE",
-        isActive: true,
-      },
-      {
-        name: "Bob",
-        dob: new Date("1989-01-02"),
-        nationality: "IT",
-        isActive: true,
-      },
-      {
-        name: "Charlie",
-        dob: new Date("1991-05-28"),
-        nationality: "DE",
-        isActive: true,
-      },
-      {
-        name: "Dave",
-        dob: new Date("2000-12-27"),
-        nationality: "ES",
-        isActive: true,
-      },
-    ],
-  });
+  console.log("🌱 Starting seed...");
 
-  const allPlayers = await prisma.player.findMany();
+  // --- 1. Create players ---
 
-  // Create Teams
-  const teamA = await prisma.team.create({ data: {} });
-  const teamB = await prisma.team.create({ data: {} });
+  const playerData = [
+    { name: "Alice", dob: "1992-04-12", nationality: "GB" },
+    { name: "Bob", dob: "1988-09-30", nationality: "US" },
+    { name: "Charlie", dob: "1995-06-22", nationality: "BR" },
+    { name: "Dana", dob: "1990-01-15", nationality: "DE" },
+    { name: "Eve", dob: "1993-11-05", nationality: "FR" },
+    { name: "Frank", dob: "1987-03-28", nationality: "IT" },
+    { name: "Grace", dob: "1996-12-17", nationality: "ES" },
+    { name: "Hank", dob: "1991-07-09", nationality: "NL" },
+  ];
 
-  // Link Players to Teams (2 per team)
-  await prisma.teamPlayer.createMany({
-    data: [
-      { playerId: allPlayers[0].id, teamId: teamA.id },
-      { playerId: allPlayers[1].id, teamId: teamA.id },
-      { playerId: allPlayers[2].id, teamId: teamB.id },
-      { playerId: allPlayers[3].id, teamId: teamB.id },
-    ],
-  });
+  const players = await Promise.all(
+    playerData.map((player) =>
+      prisma.player.create({
+        data: { ...player, dob: new Date(player.dob), isActive: true },
+      })
+    )
+  );
 
-  // Create Matches
-  await prisma.match.createMany({
-    data: [
-      {
-        team1Id: teamA.id,
-        team2Id: teamB.id,
-        scoreTeam1: 2,
-        scoreTeam2: 3,
-        matchDate: new Date("2025-08-01T14:00:00Z"),
+  console.log(`✅ Created ${players.length} players`);
+
+  // --- 2. Create matches ---
+  for (let week = 1; week <= 5; week++) {
+    // Pick random players for each team
+    const shuffled = [...players].sort(() => Math.random() - 0.5);
+    const team1Players = shuffled.slice(0, 4);
+    const team2Players = shuffled.slice(4, 8);
+
+    // Create team records
+    const team1 = await prisma.team.create({
+      data: { name: genString(week, week + 5) },
+    });
+    const team2 = await prisma.team.create({
+      data: { name: genString(week, week + 5) },
+    });
+
+    // Link players to teams
+    await prisma.teamPlayer.createMany({
+      data: team1Players.map((p) => ({
+        teamId: team1.id,
+        playerId: p.id,
+      })),
+    });
+
+    await prisma.teamPlayer.createMany({
+      data: team2Players.map((p) => ({
+        teamId: team2.id,
+        playerId: p.id,
+      })),
+    });
+
+    // Random score
+    const scoreTeam1 = Math.floor(Math.random() * 6);
+    const scoreTeam2 = Math.floor(Math.random() * 6);
+
+    // Create match
+    const match = await prisma.match.create({
+      data: {
+        team1Id: team1.id,
+        team2Id: team2.id,
+        scoreTeam1,
+        scoreTeam2,
+        matchDate: new Date(Date.now() - week * 7 * 24 * 60 * 60 * 1000), // each week ago
       },
-      {
-        team1Id: teamB.id,
-        team2Id: teamA.id,
-        scoreTeam1: 1,
-        scoreTeam2: 1,
-        matchDate: new Date("2025-08-02T14:00:00Z"),
-      },
-    ],
-  });
+    });
+
+    // Add stats for each player
+    for (const player of [...team1Players, ...team2Players]) {
+      await prisma.matchPlayerStats.create({
+        data: {
+          matchId: match.id,
+          playerId: player.id,
+          teamId: team1Players.includes(player) ? team1.id : team2.id,
+          goals: Math.floor(Math.random() * 3),
+          assists: Math.floor(Math.random() * 2),
+          conceded: Math.floor(Math.random()),
+          mvp: Math.random() > 0.95 ? 1 : 0,
+        },
+      });
+    }
+
+    console.log(
+      `⚽ Week ${week}: Match created with score ${scoreTeam1} - ${scoreTeam2}`
+    );
+  }
+
+  console.log("🌱 Seeding complete!");
 }
 
 main()
-  .then(() => prisma.$disconnect())
-  .catch(async (e) => {
+  .catch((e) => {
     console.error(e);
-    await prisma.$disconnect();
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });

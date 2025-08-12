@@ -10,39 +10,43 @@ datasource db {
 }
 
 model Player {
-  id          Int          @id @default(autoincrement())
-  name        String
-  dob         DateTime
-  nationality String
-  isActive    Boolean      @default(true)
-  teamPlayers TeamPlayer[]
+  id               String             @id @default(cuid())
+  name             String
+  dob              DateTime
+  nationality      String
+  isActive         Boolean            @default(true)
+  teamPlayers      TeamPlayer[]
+  MatchPlayerStats MatchPlayerStats[]
 }
 
 model Team {
-  id             Int          @id @default(autoincrement())
-  createdAt      DateTime     @default(now())
-  teamPlayers    TeamPlayer[]
-  matchesAsTeam1 Match[]      @relation("Team1")
-  matchesAsTeam2 Match[]      @relation("Team2")
+  id               String             @id @default(cuid())
+  name             String
+  createdAt        DateTime           @default(now())
+  teamPlayers      TeamPlayer[]
+  matchesAsTeam1   Match[]            @relation("Team1")
+  matchesAsTeam2   Match[]            @relation("Team2")
+  MatchPlayerStats MatchPlayerStats[]
 }
 
 model TeamPlayer {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(cuid())
   team     Team   @relation(fields: [teamId], references: [id])
-  teamId   Int
+  teamId   String
   player   Player @relation(fields: [playerId], references: [id])
-  playerId Int
+  playerId String
 }
 
 model Match {
-  id         Int      @id @default(autoincrement())
-  team1      Team     @relation("Team1", fields: [team1Id], references: [id])
-  team1Id    Int
-  team2      Team     @relation("Team2", fields: [team2Id], references: [id])
-  team2Id    Int
-  scoreTeam1 Int
-  scoreTeam2 Int
-  matchDate  DateTime
+  id               String             @id @default(cuid())
+  team1            Team               @relation("Team1", fields: [team1Id], references: [id])
+  team1Id          String
+  team2            Team               @relation("Team2", fields: [team2Id], references: [id])
+  team2Id          String
+  scoreTeam1       Int
+  scoreTeam2       Int
+  matchDate        DateTime
+  MatchPlayerStats MatchPlayerStats[]
 }
 
 model User {
@@ -53,4 +57,18 @@ model User {
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   @@map(name: "users")
+}
+
+model MatchPlayerStats {
+  id       String @id @default(cuid())
+  match    Match  @relation(fields: [matchId], references: [id])
+  matchId  String
+  player   Player @relation(fields: [playerId], references: [id])
+  playerId String
+  team     Team   @relation(fields: [teamId], references: [id])
+  teamId   String
+  goals    Int    @default(0)
+  assists  Int    @default(0)
+  conceded Int    @default(0)
+  mvp      Int    @default(0)
 }

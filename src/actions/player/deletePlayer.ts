@@ -6,7 +6,7 @@ import prisma from "../../../lib/prisma";
 export const deletePlayer = async (id: string) => {
   try {
     await prisma.player.delete({
-      where: { id: +id },
+      where: { id },
     });
   } catch (error) {
     console.error("Error deleting player:", error);

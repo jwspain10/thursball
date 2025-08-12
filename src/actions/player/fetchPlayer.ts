@@ -5,7 +5,7 @@ import prisma from "../../../lib/prisma";
 export const fetchPlayer = async (id: string) => {
   try {
     const player = await prisma.player.findUnique({
-      where: { id: +id },
+      where: { id },
     });
     return player;
   } catch (error) {

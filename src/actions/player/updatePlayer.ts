@@ -8,7 +8,7 @@ export const updatePlayer = async (id: string, data: IPlayer) => {
   try {
     await prisma.player.update({
       where: {
-        id: +id,
+        id,
       },
       data,
     });
