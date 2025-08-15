@@ -1,19 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { IPlayer } from "@/app/types";
 import { useParams, useRouter } from "next/navigation";
-import PlayerForm from "../../../../forms/player/PlayerForm";
-import { SubHeader } from "@/components/SubHeader";
 import { Button } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { IPlayer, IPlayerInput } from "@/app/types";
 import { fetchPlayer } from "@/actions/player/fetchPlayer";
 import { updatePlayer } from "@/actions/player/updatePlayer";
 import { deletePlayer } from "@/actions/player/deletePlayer";
+import { SubHeader } from "@/components/SubHeader";
 import CustomModal from "@/components/CustomModal";
-import { notifications } from "@mantine/notifications";
+import PlayerForm from "../../../../forms/player/PlayerForm";
+import { initialValues } from "@/forms/player/initialValues";
 
 export default function EditPlayerPage() {
-  const [player, setPlayer] = useState<IPlayer | null>(null);
+  const [values, setValues] = useState<IPlayerInput | null>(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -21,7 +22,11 @@ export default function EditPlayerPage() {
   useEffect(() => {
     fetchPlayer(id)
       .then((data) => {
-        setPlayer(data);
+        if (data) {
+          setValues({ ...data, dob: data.dob.toISOString() });
+        } else {
+          setValues({ ...initialValues });
+        }
       })
       .catch((error) => {
         console.error("Error fetching player:", error);
@@ -30,13 +35,6 @@ export default function EditPlayerPage() {
         setLoading(false);
       });
   }, [id]);
-
-  const defaultValues = {
-    name: player?.name ?? "",
-    dob: player?.dob ?? "",
-    nationality: player?.nationality ?? "",
-    isActive: player?.isActive ?? false,
-  };
 
   const onSubmit = (data: IPlayer) => {
     setLoading(true);
@@ -84,13 +82,11 @@ export default function EditPlayerPage() {
   };
 
   return (
-    <div>
+    <>
       <SubHeader goBack>Edit Player</SubHeader>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
+      {!loading && values ? (
         <div>
-          <PlayerForm defaultValues={defaultValues} onSubmit={onSubmit} />
+          <PlayerForm values={values} onSubmit={onSubmit} />
           <CustomModal
             title="Delete Player"
             button={<Button color="red">Delete Player</Button>}
@@ -101,7 +97,9 @@ export default function EditPlayerPage() {
             </Button>
           </CustomModal>
         </div>
+      ) : (
+        <div>Loading...</div>
       )}
-    </div>
+    </>
   );
 }

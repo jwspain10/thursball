@@ -7,11 +7,17 @@ import MatchForm from "@/forms/match/MatchForm";
 import { createMatch } from "@/actions/match/createMatch";
 import { IMatchInput, ISelectOptions } from "@/app/types";
 import { fetchAllPlayers } from "@/actions/player/fetchAllPlayers";
+import { initialMatchValues } from "@/forms/match/initialValues";
 
 export default function AddMatchPage() {
   const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState<IMatchInput | null>(null);
   const [playerOptions, setPlayerOptions] = useState<ISelectOptions[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    setValues({ ...initialMatchValues });
+  }, []);
 
   const onSubmit = (data: IMatchInput) => {
     console.log("Submitting match data:", data);
@@ -49,8 +55,12 @@ export default function AddMatchPage() {
     getPlayers();
   }, []);
 
-  return !loading ? (
-    <MatchForm onSubmit={onSubmit} playerOptions={playerOptions || []} />
+  return !loading && values ? (
+    <MatchForm
+      onSubmit={onSubmit}
+      playerOptions={playerOptions || []}
+      values={values}
+    />
   ) : (
     <div>Loading...</div>
   );

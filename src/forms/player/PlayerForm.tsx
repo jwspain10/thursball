@@ -1,75 +1,55 @@
 "use client";
 
-import { useEffect } from "react";
-import { useForm } from "@mantine/form";
-import { Button, Checkbox, Group, TextInput, Select } from "@mantine/core";
-import { DatePickerInput } from "@mantine/dates";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Group } from "@mantine/core";
 import { getCountryOptions } from "@/utils/getCountryOptions";
-import { zod4Resolver } from "mantine-form-zod-resolver";
 import { schema } from "./schema";
-import { initialValues } from "./initialValues";
-import { IPlayer } from "@/app/types";
+import { IPlayerInput } from "@/app/types";
+import ControlledTextInput from "@/components/inputs/ControlledTextInput";
+import ControlledSelectInput from "@/components/inputs/ControlledSelectInput";
+import ControlledDateInput from "@/components/inputs/ControlledDateInput";
+import ControlledCheckbox from "@/components/inputs/ControlledCheckbox";
 
 interface Props {
-  defaultValues?: IPlayer;
-  onSubmit: (values: IPlayer) => void;
+  values: IPlayerInput;
+  onSubmit: (values: IPlayerInput) => void;
 }
 
-export default function PlayerForm({ defaultValues, onSubmit }: Props) {
-  useEffect(() => {
-    if (defaultValues) {
-      form.setValues({
-        ...defaultValues,
-        dob: new Date(defaultValues.dob),
-      });
-      form.resetDirty({
-        ...defaultValues,
-        dob: new Date(defaultValues.dob),
-      });
-    }
-  }, [defaultValues]);
-
-  const form = useForm({
-    mode: "uncontrolled",
-    initialValues: initialValues,
-    validate: zod4Resolver(schema),
+export default function PlayerForm({ values, onSubmit }: Props) {
+  const { control, handleSubmit } = useForm({
+    defaultValues: { ...values },
+    resolver: zodResolver(schema),
   });
 
   return (
-    <form
-      onSubmit={form.onSubmit((values) =>
-        onSubmit({ ...values, dob: new Date(values.dob).toISOString() })
-      )}
-    >
-      <TextInput
-        withAsterisk
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <ControlledTextInput
+        control={control}
+        inputName={"name"}
         label="Name"
-        placeholder="First Last"
-        key={form.key("name")}
-        {...form.getInputProps("name")}
+        defaultValue={values?.name}
       />
-      <Select
+      <ControlledSelectInput
+        control={control}
+        inputName={"nationality"}
         label="Nationality"
-        placeholder="Country"
-        data={getCountryOptions()}
-        key={form.key("nationality")}
-        {...form.getInputProps("nationality")}
+        options={getCountryOptions()}
+        defaultValue={values?.nationality}
+      />
+      <ControlledDateInput
+        control={control}
+        inputName={"dob"}
+        label={"Date of Birth"}
+        defaultValue={values?.dob}
+      />
+      <ControlledCheckbox
+        control={control}
+        inputName={"isActive"}
+        label="Is currently active"
+        defaultValue={values.isActive}
       />
 
-      <DatePickerInput
-        placeholder="Pick date"
-        label="Date of Birth"
-        radius="md"
-        withAsterisk
-        key={form.key("dob")}
-        {...form.getInputProps("dob")}
-      />
-      <Checkbox
-        mt="md"
-        label="Is currently active"
-        key={form.key("isActive")}
-        {...form.getInputProps("isActive", { type: "checkbox" })}
-      />
       <Group justify="flex-end" mt="md">
         <Button type="submit">Submit</Button>
       </Group>

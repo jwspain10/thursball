@@ -5,7 +5,14 @@ export type Params = Promise<{ id: string }>;
 export type IPlayer = {
   name: string;
   nationality: string;
-  dob: string | Date; // ISO date string
+  dob: string | Date;
+  isActive: boolean;
+};
+
+export type IPlayerInput = {
+  name: string;
+  nationality: string;
+  dob: string;
   isActive: boolean;
 };
 
@@ -24,7 +31,7 @@ export interface IMatch extends Match {
 }
 
 export interface IMatchInput {
-  matchDate: Date;
+  matchDate: string;
   team1Name: string;
   team2Name: string;
   team1Score: number;

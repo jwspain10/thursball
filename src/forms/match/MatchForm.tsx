@@ -1,102 +1,71 @@
 "use client";
 
-import { useEffect } from "react";
-import { useForm } from "@mantine/form";
-import { Button, Group, Select, TextInput } from "@mantine/core";
-import { DatePickerInput } from "@mantine/dates";
-import { zod4Resolver } from "mantine-form-zod-resolver";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Group } from "@mantine/core";
 import { IMatchInput, ISelectOptions } from "@/app/types";
-import { initialMatchValues } from "./initialValues";
 import { schema } from "./schema";
-import CustomNumberInput from "@/components/CustomNumberInput";
+import ControlledTextInput from "@/components/inputs/ControlledTextInput";
+import ControlledNumberInput from "@/components/inputs/ControlledNumberInput";
+import ControlledDateInput from "@/components/inputs/ControlledDateInput";
+// import ControlledMultiSelectInput from "@/components/inputs/ControlledMultiSelectInput";
 
 interface Props {
-  defaultValues?: IMatchInput;
+  values: IMatchInput;
   playerOptions: ISelectOptions[];
   onSubmit: (values: IMatchInput) => void;
 }
 
-export default function PlayerForm({
-  defaultValues,
-  playerOptions,
-  onSubmit,
-}: Props) {
-  const setDateToString = (date: Date | null): string => {
-    return date ? date.toISOString() : "";
-  };
-  useEffect(() => {
-    if (defaultValues) {
-      form.setValues({
-        ...defaultValues,
-        matchDate: setDateToString(defaultValues.matchDate),
-      });
-      form.resetDirty({
-        ...defaultValues,
-        matchDate: setDateToString(defaultValues.matchDate),
-      });
-    }
-  }, [defaultValues]);
-
-  const form = useForm({
-    mode: "uncontrolled",
-    initialValues: initialMatchValues,
-    validate: zod4Resolver(schema),
+export default function PlayerForm({ values, playerOptions, onSubmit }: Props) {
+  const { control, handleSubmit } = useForm({
+    defaultValues: { ...values },
+    resolver: zodResolver(schema),
   });
 
   return (
-    <form
-      onSubmit={form.onSubmit((values) =>
-        onSubmit({ ...values, matchDate: new Date(values.matchDate) })
-      )}
-    >
-      <DatePickerInput
-        placeholder="Pick date"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <ControlledDateInput
+        control={control}
+        inputName={"matchDate"}
         label="Match Date"
-        radius="md"
-        withAsterisk
-        key={form.key("matchDate")}
-        {...form.getInputProps("matchDate")}
+        defaultValue={values?.matchDate.toString()}
       />
-      <TextInput
-        withAsterisk
-        label="Team 1 Name"
-        placeholder="Team 1"
-        key={form.key("team1Name")}
-        {...form.getInputProps("team1Name")}
+      <ControlledTextInput
+        control={control}
+        inputName={"team1Name"}
+        label="Team 1"
+        defaultValue={values?.team1Name}
       />
-      <TextInput
-        withAsterisk
-        label="Team 2 Name"
-        placeholder="Team 2"
-        key={form.key("team2Name")}
-        {...form.getInputProps("team2Name")}
+      <ControlledTextInput
+        control={control}
+        inputName={"team2Name"}
+        label="Team 2"
+        defaultValue={values?.team2Name}
       />
-      <CustomNumberInput
+      <ControlledNumberInput
+        control={control}
+        inputName={"team1Score"}
         label="Team 1 Score"
-        placeholder="Score"
-        key={form.key("team1Score")}
-        {...form.getInputProps("team1score")}
+        defaultValue={values?.team1Score}
       />
-      <CustomNumberInput
+      <ControlledNumberInput
+        control={control}
+        inputName={"team2Score"}
         label="Team 2 Score"
-        placeholder="Score"
-        key={form.key("team2Score")}
-        {...form.getInputProps("team2score")}
+        defaultValue={values?.team2Score}
       />
-      <Select
+      {/* <ControlledMultiSelectInput
+        control={control}
+        inputName={"team1Players"}
         label="Team 1 Players"
-        placeholder="Team 1 Players"
-        data={playerOptions}
-        key={form.key("team1Players")}
-        {...form.getInputProps("team1Players")}
+        options={playerOptions}
       />
-      <Select
+      <ControlledMultiSelectInput
+        control={control}
+        inputName={"team2Players"}
         label="Team 2 Players"
-        placeholder="Team 2 Players"
-        data={playerOptions}
-        key={form.key("team2Players")}
-        {...form.getInputProps("team2Players")}
-      />
+        options={playerOptions}
+      /> */}
 
       <Group justify="flex-end" mt="md">
         <Button type="submit">Submit</Button>
