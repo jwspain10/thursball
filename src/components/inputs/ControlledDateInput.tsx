@@ -1,5 +1,5 @@
+import { Control, Controller, FieldError, Path } from "react-hook-form";
 import { DatePickerInput } from "@mantine/dates";
-import { Control, Controller, Path } from "react-hook-form";
 
 interface Props<T extends object> {
   control: Control<T>;
@@ -7,7 +7,8 @@ interface Props<T extends object> {
   label: string;
   placeholder?: string;
   withAsterisk?: boolean;
-  defaultValue?: string;
+  defaultValue?: Date;
+  errors?: FieldError;
 }
 
 export default function ControlledDateInput<T extends object>({
@@ -16,6 +17,7 @@ export default function ControlledDateInput<T extends object>({
   label,
   placeholder,
   withAsterisk = true,
+  errors,
 }: Props<T>) {
   return (
     <Controller
@@ -29,7 +31,14 @@ export default function ControlledDateInput<T extends object>({
             label={label}
             placeholder={placeholder}
             value={value}
-            onChange={onChange}
+            onChange={(value) => {
+              if (typeof value === "string") {
+                return onChange(new Date(value));
+              }
+              return onChange(value);
+            }}
+            maxDate={new Date()}
+            error={errors?.message}
           />
         );
       }}

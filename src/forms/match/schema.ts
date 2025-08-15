@@ -1,7 +1,7 @@
 import { z } from "zod/v4";
 
 export const schema = z.object({
-  matchDate: z.string(),
+  matchDate: z.date(),
   team1Name: z
     .string()
     .min(2, { message: "Name should have at least 2 letters" }),

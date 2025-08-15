@@ -3,7 +3,7 @@ export const initialMatchValues = {
   team2Name: "",
   team1Score: 0,
   team2Score: 0,
-  matchDate: new Date().toISOString().split("T")[0], // Default to today's date
+  matchDate: new Date(), // Default to today's date
 };
 
 export const initialStatsValues = {

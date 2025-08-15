@@ -23,7 +23,7 @@ export default function EditPlayerPage() {
     fetchPlayer(id)
       .then((data) => {
         if (data) {
-          setValues({ ...data, dob: data.dob.toISOString() });
+          setValues({ ...data });
         } else {
           setValues({ ...initialValues });
         }
@@ -34,11 +34,11 @@ export default function EditPlayerPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, [id]);
+  }, []);
 
-  const onSubmit = (data: IPlayer) => {
+  const onSubmit = async (data: IPlayer) => {
     setLoading(true);
-    updatePlayer(id, data)
+    await updatePlayer(id, data)
       .then(() => {
         notifications.show({
           title: "Success",

@@ -1,5 +1,5 @@
+import { Control, Controller, FieldError, Path } from "react-hook-form";
 import { TextInput } from "@mantine/core";
-import { Control, Controller, Path } from "react-hook-form";
 
 interface Props<T extends object> {
   control: Control<T>;
@@ -8,6 +8,7 @@ interface Props<T extends object> {
   placeholder?: string;
   withAsterisk?: boolean;
   defaultValue?: string;
+  errors?: FieldError;
 }
 
 export default function ControlledTextInput<T extends object>({
@@ -16,6 +17,7 @@ export default function ControlledTextInput<T extends object>({
   label,
   placeholder,
   withAsterisk = true,
+  errors,
 }: Props<T>) {
   return (
     <Controller
@@ -30,6 +32,7 @@ export default function ControlledTextInput<T extends object>({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            error={errors?.message}
           />
         );
       }}

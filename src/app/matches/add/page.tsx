@@ -20,7 +20,6 @@ export default function AddMatchPage() {
   }, []);
 
   const onSubmit = (data: IMatchInput) => {
-    console.log("Submitting match data:", data);
     setLoading(true);
     createMatch(data)
       .then(() => {

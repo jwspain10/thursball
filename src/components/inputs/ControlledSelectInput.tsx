@@ -1,6 +1,6 @@
-import { ISelectOptions } from "@/app/types";
+import { Control, Controller, FieldError, Path } from "react-hook-form";
 import { Select } from "@mantine/core";
-import { Control, Controller, Path } from "react-hook-form";
+import { ISelectOptions } from "@/app/types";
 
 interface Props<T extends object> {
   control: Control<T>;
@@ -10,6 +10,7 @@ interface Props<T extends object> {
   placeholder?: string;
   withAsterisk?: boolean;
   defaultValue?: string;
+  errors?: FieldError;
 }
 
 export default function ControlledSelectInput<T extends object>({
@@ -19,6 +20,7 @@ export default function ControlledSelectInput<T extends object>({
   placeholder,
   options,
   withAsterisk = true,
+  errors,
 }: Props<T>) {
   return (
     <Controller
@@ -34,6 +36,7 @@ export default function ControlledSelectInput<T extends object>({
             placeholder={placeholder}
             data={options}
             onChange={onChange}
+            error={errors?.message}
           />
         );
       }}

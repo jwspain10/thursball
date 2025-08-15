@@ -1,6 +1,6 @@
-import { NumberInput, Group, Button, NumberInputHandlers } from "@mantine/core";
 import { useRef } from "react";
-import { Control, Controller, Path } from "react-hook-form";
+import { Control, Controller, FieldError, Path } from "react-hook-form";
+import { NumberInput, Group, Button, NumberInputHandlers } from "@mantine/core";
 
 interface Props<T extends object> {
   control: Control<T>;
@@ -12,6 +12,7 @@ interface Props<T extends object> {
   step?: number;
   min?: number;
   max?: number;
+  errors?: FieldError;
 }
 
 export default function ControlledNumberInput<T extends object>({
@@ -23,6 +24,7 @@ export default function ControlledNumberInput<T extends object>({
   step = 1,
   min = 0,
   max = 99,
+  errors,
 }: Props<T>) {
   const handlersRef = useRef<NumberInputHandlers>(null);
 
@@ -44,6 +46,7 @@ export default function ControlledNumberInput<T extends object>({
               step={step}
               min={min}
               max={max}
+              error={errors?.message}
             />
             <Group mt="md" justify="center">
               <Button

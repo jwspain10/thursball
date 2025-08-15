@@ -1,6 +1,6 @@
 export const initialValues = {
   name: "",
   nationality: "",
-  dob: "",
+  dob: new Date(),
   isActive: true,
 };

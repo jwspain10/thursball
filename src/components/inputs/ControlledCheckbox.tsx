@@ -1,17 +1,19 @@
+import { Control, Controller, FieldError, Path } from "react-hook-form";
 import { Checkbox } from "@mantine/core";
-import { Control, Controller, Path } from "react-hook-form";
 
 interface Props<T extends object> {
   control: Control<T>;
   inputName: Path<T>;
   label: string;
   defaultValue?: boolean;
+  errors?: FieldError;
 }
 
 export default function ControlledCheckbox<T extends object>({
   control,
   inputName,
   label,
+  errors,
 }: Props<T>) {
   return (
     <Controller
@@ -24,6 +26,7 @@ export default function ControlledCheckbox<T extends object>({
             name={name}
             checked={value}
             onChange={onChange}
+            error={errors?.message}
           />
         );
       }}

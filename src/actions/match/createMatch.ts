@@ -57,8 +57,6 @@ export const createMatch = async (data: IMatchInput) => {
   } as unknown as Match;
 
   try {
-    console.log("SERVER: ", matchData);
-
     await prisma.match.create({
       data: matchData,
     });
