@@ -4,8 +4,6 @@ export const initialMatchValues = {
   team1Score: 0,
   team2Score: 0,
   matchDate: new Date().toISOString().split("T")[0], // Default to today's date
-  team1Players: [],
-  team2Players: [],
 };
 
 export const initialStatsValues = {

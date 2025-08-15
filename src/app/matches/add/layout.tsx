@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/BackButton";
+import { SubHeader } from "@/components/SubHeader";
 import React from "react";
 
 interface Props {
@@ -8,8 +8,7 @@ interface Props {
 export default function AddMatchLayout({ children }: Props) {
   return (
     <div>
-      <BackButton />
-      <h2>Add Match</h2>
+      <SubHeader goBack>Add Match</SubHeader>
       {children}
     </div>
   );
