@@ -1,25 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
-import MatchForm from "@/forms/match/MatchForm";
-import { createMatch } from "@/actions/match/createMatch";
-import { IMatchInput, ISelectOptions } from "@/app/types";
-import { fetchAllPlayers } from "@/actions/player/fetchAllPlayers";
-import { initialMatchValues } from "@/forms/match/initialValues";
+import { createMatch } from "../api/createMatch";
+import FormStepper from "../components/FormStepper";
+import { IMatchSubmitInput } from "../types";
 
 export default function AddMatchPage() {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<IMatchInput | null>(null);
-  const [playerOptions, setPlayerOptions] = useState<ISelectOptions[]>([]);
   const router = useRouter();
 
-  useEffect(() => {
-    setValues({ ...initialMatchValues });
-  }, []);
-
-  const onSubmit = (data: IMatchInput) => {
+  const onSubmit = (data: IMatchSubmitInput) => {
     setLoading(true);
     createMatch(data)
       .then(() => {
@@ -41,26 +33,5 @@ export default function AddMatchPage() {
       });
   };
 
-  useEffect(() => {
-    const getPlayers = async () => {
-      await fetchAllPlayers().then((players) => {
-        const options = players.map((player) => ({
-          value: player.id,
-          label: player.name,
-        }));
-        setPlayerOptions(options);
-      });
-    };
-    getPlayers();
-  }, []);
-
-  return !loading && values ? (
-    <MatchForm
-      onSubmit={onSubmit}
-      playerOptions={playerOptions || []}
-      values={values}
-    />
-  ) : (
-    <div>Loading...</div>
-  );
+  return !loading ? <FormStepper onSubmit={onSubmit} /> : <div>Loading...</div>;
 }

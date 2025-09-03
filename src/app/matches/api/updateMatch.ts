@@ -1,26 +1,48 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import prisma from "../../../lib/prisma";
-import { IMatchInput } from "@/app/types";
 import { Match } from "@prisma/client";
+import prisma from "../../../../lib/prisma";
+import { IMatchSubmitInput } from "../types";
 
-export const createMatch = async (data: IMatchInput) => {
-  const { matchDate, team1Name, team2Name, team1Score, team2Score } = data;
+interface Args {
+  id: string;
+  team1Id: string;
+  team2Id: string;
+  data: IMatchSubmitInput;
+}
 
-  // Create both teams
-  const team1 = await prisma.team.create({
-    data: { name: team1Name },
+export const updateMatch = async ({ id, team1Id, team2Id, data }: Args) => {
+  const { matchDate, nameTeam1, nameTeam2, scoreTeam1, scoreTeam2 } = data;
+
+  // Update both teams
+
+  const team1 = await prisma.team.update({
+    where: { id: team1Id },
+    data: {
+      name: nameTeam1,
+    },
   });
-  const team2 = await prisma.team.create({
-    data: { name: team2Name },
+
+  const team2 = await prisma.team.update({
+    where: { id: team2Id },
+    data: {
+      name: nameTeam2,
+    },
   });
 
-  // // Link players to teams
-  // await prisma.teamPlayer.createMany({
-  //   data: team1Players.map((p) => ({
+  // Link players to teams
+  // await prisma.teamPlayer.findMany({
+  //   data: team1Players.map((playerId) => ({
   //     teamId: team1.id,
-  //     playerId: p.playerId,
+  //     playerId,
+  //   })),
+  // });
+
+  // await prisma.teamPlayer.createMany({
+  //   data: team2Players.map((playerId) => ({
+  //     teamId: team2.id,
+  //     playerId,
   //   })),
   // });
 
@@ -52,12 +74,13 @@ export const createMatch = async (data: IMatchInput) => {
     matchDate,
     team1Id: team1.id,
     team2Id: team2.id,
-    scoreTeam1: team1Score,
-    scoreTeam2: team2Score,
+    scoreTeam1,
+    scoreTeam2,
   } as unknown as Match;
 
   try {
-    await prisma.match.create({
+    await prisma.match.update({
+      where: { id },
       data: matchData,
     });
     revalidatePath("/matches");

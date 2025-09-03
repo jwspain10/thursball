@@ -8,3 +8,8 @@ export const NAV_LINKS = [
   { label: "Players", link: "/players" },
   { label: "Stats", link: "/stats" },
 ];
+
+export const STORAGE_KEYS = {
+  DETAILS: "details",
+  PLAYERS: "players",
+};

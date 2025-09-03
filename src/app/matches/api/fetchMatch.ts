@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "../../../lib/prisma";
+import prisma from "../../../../lib/prisma";
 
 export const fetchMatch = async (id: string) =>
   await prisma.match.findUnique({
@@ -8,26 +8,24 @@ export const fetchMatch = async (id: string) =>
     include: {
       team1: {
         include: {
-          teamPlayers: {
+          matchPlayerStats: {
             include: {
-              player: true,
+              player: {
+                select: { name: true },
+              },
             },
           },
         },
       },
       team2: {
         include: {
-          teamPlayers: {
+          matchPlayerStats: {
             include: {
-              player: true,
+              player: {
+                select: { name: true },
+              },
             },
           },
-        },
-      },
-      MatchPlayerStats: {
-        include: {
-          player: true,
-          team: true,
         },
       },
     },

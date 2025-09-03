@@ -16,7 +16,7 @@ model Player {
   nationality      String
   isActive         Boolean            @default(true)
   teamPlayers      TeamPlayer[]
-  MatchPlayerStats MatchPlayerStats[]
+  matchPlayerStats MatchPlayerStats[]
 }
 
 model Team {
@@ -26,7 +26,7 @@ model Team {
   teamPlayers      TeamPlayer[]
   matchesAsTeam1   Match[]            @relation("Team1")
   matchesAsTeam2   Match[]            @relation("Team2")
-  MatchPlayerStats MatchPlayerStats[]
+  matchPlayerStats MatchPlayerStats[]
 }
 
 model TeamPlayer {
@@ -46,7 +46,7 @@ model Match {
   scoreTeam1       Int
   scoreTeam2       Int
   matchDate        DateTime
-  MatchPlayerStats MatchPlayerStats[]
+  matchPlayerStats MatchPlayerStats[]
 }
 
 model User {

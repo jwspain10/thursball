@@ -1,17 +1,17 @@
 "use client";
 
-import { IMatch } from "@/app/types";
-import CustomModal from "@/components/CustomModal";
-import { Button } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { deleteMatch } from "@/actions/match/deleteMatch";
+import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { fetchMatch } from "@/actions/match/fetchMatch";
+import CustomModal from "@/components/CustomModal";
 import { SubHeader } from "@/components/SubHeader";
+import { fetchMatch, deleteMatch } from "../../api";
+import { initialMatchValues, mapMatchDataToMatchForm } from "../../schema";
+import { IMatchDetailsInput } from "../../types";
 
 export default function EditMatchPage() {
-  const [match, setMatch] = useState<IMatch | null>(null);
+  const [values, setValues] = useState<IMatchDetailsInput | null>(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -19,15 +19,42 @@ export default function EditMatchPage() {
   useEffect(() => {
     fetchMatch(id)
       .then((data) => {
-        setMatch(data);
+        if (data) {
+          setValues(mapMatchDataToMatchForm(data));
+        } else {
+          setValues({ ...initialMatchValues });
+        }
       })
       .catch((error) => {
-        console.error("Error fetching player:", error);
+        console.error("Error fetching match:", error);
       })
       .finally(() => {
         setLoading(false);
       });
   }, [id]);
+
+  // const onSubmit = (data: IMatchInput) => {
+  //   setLoading(true);
+
+  //   updateMatch(id, data)
+  //     .then(() => {
+  //       notifications.show({
+  //         title: "Success",
+  //         message: "Match updated successfully",
+  //         color: "green",
+  //       });
+  //       router.push("/matches");
+  //     })
+  //     .catch((error) => {
+  //       console.error("client error", error);
+  //       setLoading(false);
+  //       notifications.show({
+  //         title: "Error",
+  //         message: "Something went wrong while updating the match",
+  //         color: "red",
+  //       });
+  //     });
+  // };
 
   const onDelete = async () => {
     setLoading(true);
@@ -53,21 +80,24 @@ export default function EditMatchPage() {
   };
 
   return (
-    <div>
+    <>
       <SubHeader goBack>Edit Match</SubHeader>
-      {loading ? (
-        <div>Loading...</div>
+      {!loading && values ? (
+        <>
+          {/* <MatchForm values={values} playerOptions={[]} onSubmit={onSubmit} /> */}
+          <CustomModal
+            title="Delete Match"
+            button={<Button color="red">Delete Match</Button>}
+          >
+            Are you sure you want to delete this match?
+            <Button color="red" onClick={onDelete}>
+              Delete
+            </Button>
+          </CustomModal>
+        </>
       ) : (
-        <CustomModal
-          title="Delete Match"
-          button={<Button color="red">Delete Match</Button>}
-        >
-          Are you sure you want to delete this match?
-          <Button color="red" onClick={onDelete}>
-            Delete
-          </Button>
-        </CustomModal>
+        <div>Loading...</div>
       )}
-    </div>
+    </>
   );
 }

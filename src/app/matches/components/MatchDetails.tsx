@@ -1,8 +1,8 @@
 import { Stack, Group } from "@mantine/core";
-import { IMatch } from "@/app/types";
+import { IMatchResponse } from "../types";
 
 interface Props {
-  match: IMatch;
+  match: IMatchResponse;
 }
 
 export default function MatchDetails({ match }: Props) {

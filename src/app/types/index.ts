@@ -5,4 +5,3 @@ export type ISelectOptions = {
 };
 
 export * from "./player";
-export * from "./match";

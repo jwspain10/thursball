@@ -9,7 +9,7 @@ interface Props<T extends object> {
   options: ISelectOptions[];
   placeholder?: string;
   withAsterisk?: boolean;
-  defaultValue?: string;
+  defaultValue?: string[];
   errors?: FieldError;
 }
 

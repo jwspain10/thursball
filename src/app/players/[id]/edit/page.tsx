@@ -34,7 +34,7 @@ export default function EditPlayerPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   const onSubmit = async (data: IPlayer) => {
     setLoading(true);

@@ -33,7 +33,7 @@ async function main() {
   console.log(`✅ Created ${players.length} players`);
 
   // --- 2. Create matches ---
-  for (let week = 1; week <= 5; week++) {
+  for (let week = 1; week <= 3; week++) {
     // Pick random players for each team
     const shuffled = [...players].sort(() => Math.random() - 0.5);
     const team1Players = shuffled.slice(0, 4);

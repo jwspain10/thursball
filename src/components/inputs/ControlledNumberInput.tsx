@@ -34,7 +34,13 @@ export default function ControlledNumberInput<T extends object>({
       control={control}
       render={({ field: { name, value, onChange } }) => {
         return (
-          <>
+          <Group mt="md" justify="center">
+            <Button
+              onClick={() => handlersRef.current?.decrement()}
+              variant="default"
+            >
+              -
+            </Button>
             <NumberInput
               handlersRef={handlersRef}
               name={name}
@@ -48,22 +54,14 @@ export default function ControlledNumberInput<T extends object>({
               max={max}
               error={errors?.message}
             />
-            <Group mt="md" justify="center">
-              <Button
-                onClick={() => handlersRef.current?.decrement()}
-                variant="default"
-              >
-                -
-              </Button>
 
-              <Button
-                onClick={() => handlersRef.current?.increment()}
-                variant="default"
-              >
-                +
-              </Button>
-            </Group>
-          </>
+            <Button
+              onClick={() => handlersRef.current?.increment()}
+              variant="default"
+            >
+              +
+            </Button>
+          </Group>
         );
       }}
     />

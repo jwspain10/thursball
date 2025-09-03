@@ -1,17 +1,33 @@
 import { LinkButton } from "@/components/LinkButton";
 import { Params } from "@/app/types";
 import { SubHeader } from "@/components/SubHeader";
-import MatchDetails from "./MatchDetails";
-import MatchPlayersTable from "./MatchPlayersTable";
-import { fetchMatch } from "@/actions/match/fetchMatch";
+import MatchDetails from "../components/MatchDetails";
+import MatchPlayersTable from "../components/MatchPlayersTable";
+import { fetchMatch } from "../api/fetchMatch";
+import { IMatchPlayerStatsResponse } from "../types";
 
-export default async function PlayerPage({ params }: { params: Params }) {
+export default async function MatchPage({ params }: { params: Params }) {
   const { id } = await params;
 
   const match = await fetchMatch(id);
+  console.log(match);
 
-  const getPlayersInTeam = (teamId: string) =>
-    match?.MatchPlayerStats.filter((stat) => stat.teamId === teamId);
+  const getRows = (teamPlayers: IMatchPlayerStatsResponse[]) => {
+    return teamPlayers.map((player: IMatchPlayerStatsResponse) => {
+      const { playerId, goals, assists, conceded, mvp } = player;
+      return (
+        <tr key={playerId}>
+          <td>{player.player.name}</td>
+          <td>{goals}</td>
+          <td>{assists}</td>
+          <td>{conceded}</td>
+          <td>{mvp}</td>
+        </tr>
+      );
+    });
+  };
+
+  const { team1, team2 } = match || {};
 
   return (
     <div>
@@ -20,11 +36,11 @@ export default async function PlayerPage({ params }: { params: Params }) {
       {match && <MatchDetails match={match} />}
       <h3>Team 1</h3>
       {match && (
-        <MatchPlayersTable players={getPlayersInTeam(match?.team1Id)} />
+        <MatchPlayersTable rows={getRows(team1?.matchPlayerStats || [])} />
       )}
       <h3>Team 2</h3>
       {match && (
-        <MatchPlayersTable players={getPlayersInTeam(match?.team2Id)} />
+        <MatchPlayersTable rows={getRows(team2?.matchPlayerStats || [])} />
       )}
     </div>
   );
