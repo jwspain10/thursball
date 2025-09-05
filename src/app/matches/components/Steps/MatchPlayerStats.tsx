@@ -3,11 +3,11 @@
 import { ISelectOptions } from "@/app/types";
 import { useFormContext } from "../../providers/FormProvider";
 import { IMatchPlayerStatsInput } from "../../types";
-import MatchPlayersTable from "../MatchPlayersTable";
 import { useEffect, useState } from "react";
 import FormContainer from "@/components/FormContainer";
 import { useForm } from "react-hook-form";
-import { rows } from "../TableRows";
+import StatsFormModal from "../StatsFormModal";
+import CustomTable from "@/components/CustomTable";
 
 interface Props {
   playerOptions: ISelectOptions[];
@@ -83,17 +83,39 @@ export default function MatchPlayerStatsForm({
     }
   };
 
+  const getRows = (selectedPlayers: IMatchPlayerStatsInput[]) => {
+    return selectedPlayers?.map((player) => {
+      const { goals, assists, conceded, mvp } = player;
+      return {
+        name: player.player.name,
+        goals,
+        assists,
+        conceded,
+        mvp,
+        stats: <StatsFormModal player={player} onSubmit={onSubmitStats} />,
+      };
+    });
+  };
+
+  const columns = [
+    { key: "name", label: "" },
+    { key: "goals", label: "Gs" },
+    { key: "assists", label: "As" },
+    { key: "conceded", label: "Cn" },
+    { key: "mvp", label: "Mvp" },
+    { key: "stats", label: "" },
+  ];
+
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <>
         <div>Team1</div>
-        <div>
-          <MatchPlayersTable rows={rows(team1Players, onSubmitStats)} />
-        </div>
+
+        <CustomTable rows={getRows(team1Players)} columns={columns} />
+
         <div>Team2</div>
-        <div>
-          <MatchPlayersTable rows={rows(team2Players, onSubmitStats)} />
-        </div>
+
+        <CustomTable rows={getRows(team2Players)} columns={columns} />
       </>
     </FormContainer>
   );

@@ -86,10 +86,9 @@ export default function EditMatchPage() {
 
   return (
     <>
-      <SubHeader goBack>Edit Match</SubHeader>
-      {!loading && values ? (
-        <>
-          {/* <MatchForm values={values} playerOptions={[]} onSubmit={onSubmit} /> */}
+      <SubHeader
+        goBack
+        button={
           <CustomModal
             title="Delete Match"
             button={<Button color="red">Delete Match</Button>}
@@ -99,6 +98,13 @@ export default function EditMatchPage() {
               Delete
             </Button>
           </CustomModal>
+        }
+      >
+        Edit Match
+      </SubHeader>
+      {!loading && values ? (
+        <>
+          {/* <MatchForm values={values} playerOptions={[]} onSubmit={onSubmit} /> */}
         </>
       ) : (
         <CustomLoader label="Deleting Match" />

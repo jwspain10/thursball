@@ -81,10 +81,9 @@ export default function EditPlayerPage() {
 
   return (
     <>
-      <SubHeader goBack>Edit Player</SubHeader>
-      {!loading && values ? (
-        <div>
-          <PlayerForm values={values} onSubmit={onSubmit} />
+      <SubHeader
+        goBack
+        button={
           <CustomModal
             title="Delete Player"
             button={<Button color="red">Delete Player</Button>}
@@ -94,6 +93,13 @@ export default function EditPlayerPage() {
               Delete
             </Button>
           </CustomModal>
+        }
+      >
+        Edit Player
+      </SubHeader>
+      {!loading && values ? (
+        <div>
+          <PlayerForm values={values} onSubmit={onSubmit} />
         </div>
       ) : (
         <div>Loading...</div>

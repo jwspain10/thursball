@@ -11,7 +11,7 @@ export default async function MatchesPage() {
       team2: true,
     },
     orderBy: {
-      matchDate: "asc",
+      matchDate: "desc",
     },
   });
   return (

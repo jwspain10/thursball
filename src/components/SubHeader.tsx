@@ -1,15 +1,20 @@
+import { Group } from "@mantine/core";
 import { BackButton } from "./BackButton";
 
 interface Props {
   children: string | React.ReactNode;
   goBack?: boolean;
+  button?: React.ReactNode;
 }
 
-export const SubHeader = ({ children, goBack }: Props) => {
+export const SubHeader = ({ children, goBack, button }: Props) => {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-      {goBack && <BackButton />}
-      <h2>{children}</h2>
-    </div>
+    <Group justify="space-between" gap="xs">
+      <Group gap="xs">
+        {goBack && <BackButton />}
+        <h2>{children}</h2>
+      </Group>
+      <div>{button}</div>
+    </Group>
   );
 };
