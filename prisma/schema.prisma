@@ -39,9 +39,9 @@ model TeamPlayer {
 
 model Match {
   id               String             @id @default(cuid())
-  team1            Team               @relation("Team1", fields: [team1Id], references: [id])
+  team1            Team               @relation("Team1", fields: [team1Id], references: [id], onDelete: Cascade)
   team1Id          String
-  team2            Team               @relation("Team2", fields: [team2Id], references: [id])
+  team2            Team               @relation("Team2", fields: [team2Id], references: [id], onDelete: Cascade)
   team2Id          String
   scoreTeam1       Int
   scoreTeam2       Int
@@ -52,6 +52,7 @@ model Match {
 model User {
   id        String   @id @default(cuid())
   name      String?
+  lastName  String?
   email     String?  @unique
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
@@ -61,7 +62,7 @@ model User {
 
 model MatchPlayerStats {
   id       String @id @default(cuid())
-  match    Match  @relation(fields: [matchId], references: [id])
+  match    Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
   matchId  String
   player   Player @relation(fields: [playerId], references: [id])
   playerId String

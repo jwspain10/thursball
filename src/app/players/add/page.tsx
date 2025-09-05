@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import PlayerForm from "../../../forms/player/PlayerForm";
-import { createPlayer } from "@/actions/player/createPlayer";
-import { IPlayerInput } from "@/app/types";
-import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
+import { notifications } from "@mantine/notifications";
+
+import { IPlayerInput } from "@/app/types";
 import { initialValues } from "@/forms/player/initialValues";
+import PlayerForm from "@/forms/player/PlayerForm";
+import { createPlayer } from "../api";
+import CustomLoader from "@/components/CustomLoader";
 
 export default function AddPlayerPage() {
   const [loading, setLoading] = useState(false);
@@ -42,6 +44,6 @@ export default function AddPlayerPage() {
   return !loading && values ? (
     <PlayerForm onSubmit={onSubmit} values={values} />
   ) : (
-    <div>LoadinG!!!</div>
+    <CustomLoader label="Adding player..." />
   );
 }

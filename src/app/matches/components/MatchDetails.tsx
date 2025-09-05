@@ -1,5 +1,6 @@
-import { Stack, Group } from "@mantine/core";
+import { Text, Box } from "@mantine/core";
 import { IMatchResponse } from "../types";
+import MatchScoreBox from "./MatchScoreBox";
 
 interface Props {
   match: IMatchResponse;
@@ -8,19 +9,16 @@ interface Props {
 export default function MatchDetails({ match }: Props) {
   const { team1, team2, scoreTeam1, scoreTeam2, matchDate } = match;
   return (
-    <div>
-      <p>{new Date(matchDate).toLocaleDateString()}</p>
-      <Stack bg="var(--mantine-color-body)" justify="flex-start" gap="xs">
-        <Group justify="space-between" gap="xs">
-          <div>{team1.name}</div>
-          <div>{scoreTeam1}</div>
-        </Group>
-
-        <Group justify="space-between" gap="xs">
-          <div>{team2.name}</div>
-          <div>{scoreTeam2}</div>
-        </Group>
-      </Stack>
-    </div>
+    <Box>
+      <Text size="xs" ta="center">
+        {new Date(matchDate).toDateString()}
+      </Text>
+      <MatchScoreBox
+        nameTeam1={team1.name}
+        nameTeam2={team2.name}
+        scoreTeam1={scoreTeam1}
+        scoreTeam2={scoreTeam2}
+      />
+    </Box>
   );
 }

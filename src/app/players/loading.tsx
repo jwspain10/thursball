@@ -1,10 +1,6 @@
 import React from "react";
+import CustomLoader from "@/components/CustomLoader";
 
 export default function PlayersLoading() {
-  return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2>Loading Players...</h2>
-      <p>Please wait while we fetch the latest players.</p>
-    </div>
-  );
+  return <CustomLoader label="Loading players..." />;
 }

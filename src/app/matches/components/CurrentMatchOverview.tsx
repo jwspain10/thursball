@@ -1,4 +1,6 @@
+import { Box, Text } from "@mantine/core";
 import { useFormContext } from "../providers/FormProvider";
+import MatchScoreBox from "./MatchScoreBox";
 
 export default function CurrentMatchOverview() {
   const formContext = useFormContext();
@@ -7,17 +9,17 @@ export default function CurrentMatchOverview() {
   return (
     matchDetails &&
     matchPlayerIds && (
-      <div>
-        <div>{matchDetails.matchDate.toDateString()}</div>
-        <div>
-          Team 1: {matchDetails.nameTeam1} - {matchDetails.scoreTeam1}{" "}
-        </div>
-        <div>
-          Team 2: {matchDetails.nameTeam2} - {matchDetails.scoreTeam2}{" "}
-        </div>
-        <div>Team 1 Players: {matchPlayerIds?.team1Players.length}</div>
-        <div>Team 2 Players: {matchPlayerIds?.team2Players.length}</div>
-      </div>
+      <Box>
+        <Text size="sm" ta="center">
+          {matchDetails.matchDate.toDateString()}
+        </Text>
+        <MatchScoreBox
+          nameTeam1={matchDetails.nameTeam1}
+          nameTeam2={matchDetails.nameTeam2}
+          scoreTeam1={matchDetails.scoreTeam1}
+          scoreTeam2={matchDetails.scoreTeam2}
+        />
+      </Box>
     )
   );
 }

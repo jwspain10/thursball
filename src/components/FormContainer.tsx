@@ -8,7 +8,7 @@ interface Props {
 
 export default function FormContainer({ children, onSubmit }: Props) {
   return (
-    <Container strategy="grid" size={500}>
+    <Container strategy="grid">
       <form
         onSubmit={(ev) => {
           ev.preventDefault();

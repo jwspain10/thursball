@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchAllPlayers } from "@/actions/player/fetchAllPlayers";
+
 import { ISelectOptions } from "@/app/types";
+import { fetchAllPlayers } from "@/app/players/api/fetchAllPlayers";
 
 export const usePlayerOptions = () => {
   const [playerOptions, setPlayerOptions] = useState<ISelectOptions[]>([]);

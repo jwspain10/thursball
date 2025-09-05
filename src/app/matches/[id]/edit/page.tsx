@@ -9,6 +9,7 @@ import { SubHeader } from "@/components/SubHeader";
 import { fetchMatch, deleteMatch } from "../../api";
 import { initialMatchValues, mapMatchDataToMatchForm } from "../../schema";
 import { IMatchDetailsInput } from "../../types";
+import CustomLoader from "@/components/CustomLoader";
 
 export default function EditMatchPage() {
   const [values, setValues] = useState<IMatchDetailsInput | null>(null);
@@ -70,10 +71,14 @@ export default function EditMatchPage() {
       })
       .catch((error) => {
         console.error("client error", error);
+        let errorMessage = error.message;
+        if (errorMessage.includes("Foreign key constraint")) {
+          errorMessage = "Can not delete a match with match players associated";
+        }
         setLoading(false);
         notifications.show({
           title: "Error",
-          message: `Something went wrong while updating the match: ${error.message}`,
+          message: `Something went wrong while updating the match: ${errorMessage}`,
           color: "red",
         });
       });
@@ -96,7 +101,7 @@ export default function EditMatchPage() {
           </CustomModal>
         </>
       ) : (
-        <div>Loading...</div>
+        <CustomLoader label="Deleting Match" />
       )}
     </>
   );

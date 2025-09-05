@@ -55,7 +55,7 @@ export default function MatchPlayerStatsForm({
     const team2 = getTeamPlayers(matchPlayerIds?.team2Players || []);
 
     setCurrentPlayerStats([...team1, ...team2]);
-  }, [matchPlayerStats, getName, matchPlayerIds]);
+  }, [matchPlayerStats]);
 
   const onSubmitStats = (values: IMatchPlayerStatsInput) => {
     const updatedStats = currentPlayerStats.map((player) => {

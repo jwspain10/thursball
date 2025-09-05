@@ -6,6 +6,7 @@ import { notifications } from "@mantine/notifications";
 import { createMatch } from "../api/createMatch";
 import FormStepper from "../components/FormStepper";
 import { IMatchSubmitInput } from "../types";
+import CustomLoader from "@/components/CustomLoader";
 
 export default function AddMatchPage() {
   const [loading, setLoading] = useState(false);
@@ -33,5 +34,9 @@ export default function AddMatchPage() {
       });
   };
 
-  return !loading ? <FormStepper onSubmit={onSubmit} /> : <div>Loading...</div>;
+  return !loading ? (
+    <FormStepper onSubmit={onSubmit} />
+  ) : (
+    <CustomLoader label="Adding match..." />
+  );
 }

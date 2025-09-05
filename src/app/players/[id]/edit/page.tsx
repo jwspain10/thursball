@@ -5,13 +5,11 @@ import { useParams, useRouter } from "next/navigation";
 import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IPlayer, IPlayerInput } from "@/app/types";
-import { fetchPlayer } from "@/actions/player/fetchPlayer";
-import { updatePlayer } from "@/actions/player/updatePlayer";
-import { deletePlayer } from "@/actions/player/deletePlayer";
 import { SubHeader } from "@/components/SubHeader";
 import CustomModal from "@/components/CustomModal";
-import PlayerForm from "../../../../forms/player/PlayerForm";
+import PlayerForm from "@/forms/player/PlayerForm";
 import { initialValues } from "@/forms/player/initialValues";
+import { fetchPlayer, updatePlayer, deletePlayer } from "../../api";
 
 export default function EditPlayerPage() {
   const [values, setValues] = useState<IPlayerInput | null>(null);

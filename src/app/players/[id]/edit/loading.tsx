@@ -1,10 +1,6 @@
 import React from "react";
+import CustomLoader from "@/components/CustomLoader";
 
 export default function EditPlayerLoading() {
-  return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2>Loading Player...</h2>
-      <p>Please wait while we fetch the player.</p>
-    </div>
-  );
+  return <CustomLoader label="Editing player..." />;
 }

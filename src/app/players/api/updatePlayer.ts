@@ -1,8 +1,9 @@
 "use server";
 
-import { IPlayer } from "@/app/types";
-import prisma from "../../../lib/prisma";
 import { revalidatePath } from "next/cache";
+
+import { IPlayer } from "@/app/types";
+import prisma from "../../../../lib/prisma";
 
 export const updatePlayer = async (id: string, data: IPlayer) => {
   try {

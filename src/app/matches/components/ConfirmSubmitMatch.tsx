@@ -13,10 +13,6 @@ export default function ConfirmSubmitMatch({ onSubmit }: Props) {
   const { matchDetails, matchPlayerIds, matchPlayerStats } =
     useFormContext() || {};
 
-  console.log(matchDetails);
-  console.log("stats", matchPlayerStats);
-  console.log("ids", matchPlayerIds);
-
   const formatMatchValues = (): IMatchSubmitInput => {
     return {
       ...matchDetails,

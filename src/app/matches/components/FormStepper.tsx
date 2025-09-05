@@ -51,10 +51,14 @@ export default function FormStepper({ onSubmit }: Props) {
   return (
     <FormProvider>
       <>
-        <CurrentMatchOverview />
         <Stepper active={active} onStepClick={setActive}>
           {steps.map((step) => {
-            return <Stepper.Step key={step.key}>{step.comp}</Stepper.Step>;
+            return (
+              <Stepper.Step key={step.key}>
+                <CurrentMatchOverview />
+                {step.comp}
+              </Stepper.Step>
+            );
           })}
         </Stepper>
         <Group justify="center" mt="xl">
