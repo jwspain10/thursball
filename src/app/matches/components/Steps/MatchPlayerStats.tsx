@@ -55,6 +55,7 @@ export default function MatchPlayerStatsForm({
     const team2 = getTeamPlayers(matchPlayerIds?.team2Players || []);
 
     setCurrentPlayerStats([...team1, ...team2]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchPlayerStats]);
 
   const onSubmitStats = (values: IMatchPlayerStatsInput) => {

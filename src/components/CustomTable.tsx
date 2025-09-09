@@ -1,5 +1,5 @@
-import { Table, TableTbody, TableTd, TableThead, TableTr } from "@mantine/core";
 import { ReactNode } from "react";
+import { Table, TableTbody, TableTd, TableThead, TableTr } from "@mantine/core";
 
 type TableRow = Record<string, unknown>;
 type Column = { key: string; label: string };
