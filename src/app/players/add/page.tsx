@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
 
 import { IPlayerInput } from "@/app/types";
-import { initialValues } from "@/forms/player/initialValues";
-import PlayerForm from "@/forms/player/PlayerForm";
 import { createPlayer } from "../api";
-import CustomLoader from "@/components/CustomLoader";
+import PlayerForm from "../components/forms/PlayerForm";
+import { initialValues } from "../components/forms/initialValues";
 
 export default function AddPlayerPage() {
   const [loading, setLoading] = useState(false);
@@ -41,9 +40,9 @@ export default function AddPlayerPage() {
       });
   };
 
-  return !loading && values ? (
-    <PlayerForm onSubmit={onSubmit} values={values} />
-  ) : (
-    <CustomLoader label="Adding player..." />
+  return (
+    values && (
+      <PlayerForm onSubmit={onSubmit} values={values} loading={loading} />
+    )
   );
 }

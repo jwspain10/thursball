@@ -10,13 +10,15 @@ import ControlledSelectInput from "@/components/inputs/ControlledSelectInput";
 import ControlledDateInput from "@/components/inputs/ControlledDateInput";
 import ControlledCheckbox from "@/components/inputs/ControlledCheckbox";
 import FormContainer from "@/components/FormContainer";
+import { Stack } from "@mantine/core";
 
 interface Props {
   values: IPlayerInput;
   onSubmit: (values: IPlayerInput) => void;
+  loading?: boolean;
 }
 
-export default function PlayerForm({ values, onSubmit }: Props) {
+export default function PlayerForm({ values, onSubmit, loading }: Props) {
   const {
     control,
     handleSubmit,
@@ -27,14 +29,26 @@ export default function PlayerForm({ values, onSubmit }: Props) {
   });
 
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <>
+    <FormContainer onSubmit={handleSubmit(onSubmit)} loading={loading}>
+      <Stack
+        bg="var(--mantine-color-body)"
+        align="stretch"
+        justify="flex-start"
+        gap="md"
+      >
         <ControlledTextInput
           control={control}
           inputName={"name"}
           label="Name"
           defaultValue={values?.name}
           errors={errors?.name}
+        />
+        <ControlledTextInput
+          control={control}
+          inputName={"lastName"}
+          label="Last Name"
+          defaultValue={values?.lastName}
+          errors={errors?.lastName}
         />
         <ControlledSelectInput
           control={control}
@@ -58,7 +72,7 @@ export default function PlayerForm({ values, onSubmit }: Props) {
           defaultValue={values.isActive}
           errors={errors.isActive}
         />
-      </>
+      </Stack>
     </FormContainer>
   );
 }

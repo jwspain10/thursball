@@ -3,6 +3,7 @@ import { getCountry } from "@/utils/getCountry";
 import { Avatar, Box, Group, Stack, Text } from "@mantine/core";
 import ReactCountryFlag from "react-country-flag";
 import prisma from "../../../../lib/prisma";
+import { getName } from "@/utils/getName";
 
 export default async function PlayerProfile({
   playerId,
@@ -14,7 +15,7 @@ export default async function PlayerProfile({
   });
 
   const birthday = new Date(player?.dob || "");
-
+  const { fullName } = getName(player?.name || "", player?.lastName || "");
   return (
     player && (
       <Box>
@@ -25,7 +26,7 @@ export default async function PlayerProfile({
           <Box>
             <Stack align="flex-start" justify="center" gap="xs">
               <Text size="xl" fw="900">
-                {player.name}
+                {fullName}
               </Text>
               <Text size="sm">
                 <ReactCountryFlag

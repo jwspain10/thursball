@@ -12,14 +12,44 @@ async function main() {
   // --- 1. Create players ---
 
   const playerData = [
-    { name: "Alice", dob: "1992-04-12", nationality: "GB" },
-    { name: "Bob", dob: "1988-09-30", nationality: "US" },
-    { name: "Charlie", dob: "1995-06-22", nationality: "BR" },
-    { name: "Dana", dob: "1990-01-15", nationality: "DE" },
-    { name: "Eve", dob: "1993-11-05", nationality: "FR" },
-    { name: "Frank", dob: "1987-03-28", nationality: "IT" },
-    { name: "Grace", dob: "1996-12-17", nationality: "ES" },
-    { name: "Hank", dob: "1991-07-09", nationality: "NL" },
+    {
+      name: "Alice",
+      lastName: "LastName",
+      dob: "1992-04-12",
+      nationality: "GB",
+    },
+    { name: "Bob", lastName: "LastName", dob: "1988-09-30", nationality: "US" },
+    {
+      name: "Charlie",
+      lastName: "LastName",
+      dob: "1995-06-22",
+      nationality: "BR",
+    },
+    {
+      name: "Dana",
+      lastName: "LastName",
+      dob: "1990-01-15",
+      nationality: "DE",
+    },
+    { name: "Eve", lastName: "LastName", dob: "1993-11-05", nationality: "FR" },
+    {
+      name: "Frank",
+      lastName: "LastName",
+      dob: "1987-03-28",
+      nationality: "IT",
+    },
+    {
+      name: "Grace",
+      lastName: "LastName",
+      dob: "1996-12-17",
+      nationality: "ES",
+    },
+    {
+      name: "Hank",
+      lastName: "LastName",
+      dob: "1991-07-09",
+      nationality: "NL",
+    },
   ];
 
   const players = await Promise.all(

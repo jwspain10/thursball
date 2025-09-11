@@ -8,6 +8,7 @@ import PlayerStatsLoading from "../components/PlayerStatsLoading";
 
 import PlayerProfile from "../components/PlayerProfile";
 import PlayerProfileLoading from "../components/PlayerProfileLoading";
+
 import PlayerStats from "../components/PlayerStats";
 import PlayerMatchStatsLoading from "../components/PlayerMatchStatsLoading";
 

@@ -7,12 +7,14 @@ import { notifications } from "@mantine/notifications";
 import { IPlayer, IPlayerInput } from "@/app/types";
 import { SubHeader } from "@/components/SubHeader";
 import CustomModal from "@/components/CustomModal";
-import PlayerForm from "@/forms/player/PlayerForm";
-import { initialValues } from "@/forms/player/initialValues";
 import { fetchPlayer, updatePlayer, deletePlayer } from "../../api";
+import { initialValues } from "../../components/forms/initialValues";
+import PlayerForm from "../../components/forms/PlayerForm";
+import PlayerFormLoading from "../../components/forms/PlayerFormLoading";
 
 export default function EditPlayerPage() {
   const [values, setValues] = useState<IPlayerInput | null>(null);
+  const [loadingForm, setLoadingForm] = useState(true);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -20,8 +22,9 @@ export default function EditPlayerPage() {
   useEffect(() => {
     fetchPlayer(id)
       .then((data) => {
+        setLoadingForm(false);
         if (data) {
-          setValues({ ...data });
+          setValues({ ...data, lastName: data.lastName || "" });
         } else {
           setValues({ ...initialValues });
         }
@@ -97,12 +100,9 @@ export default function EditPlayerPage() {
       >
         Edit Player
       </SubHeader>
-      {!loading && values ? (
-        <div>
-          <PlayerForm values={values} onSubmit={onSubmit} />
-        </div>
-      ) : (
-        <div>Loading...</div>
+      {loadingForm && <PlayerFormLoading />}
+      {values && (
+        <PlayerForm values={values} onSubmit={onSubmit} loading={loading} />
       )}
     </>
   );
