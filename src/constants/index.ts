@@ -13,3 +13,8 @@ export const STORAGE_KEYS = {
   DETAILS: "details",
   PLAYERS: "players",
 };
+
+export const ROLES = {
+  ADMIN: "ADMIN",
+  USER: "USER",
+};

@@ -5,8 +5,12 @@ import MatchDetails from "../components/MatchDetails";
 import { fetchMatch } from "../api/fetchMatch";
 import { IMatchPlayerStatsResponse } from "../types";
 import CustomTable from "@/components/CustomTable";
+import { auth } from "../../../../auth";
+import { getAuthRole } from "@/utils/getAuthRole";
 
 export default async function MatchPage({ params }: { params: Params }) {
+  const session = await auth();
+  const { isAdmin } = getAuthRole(session);
   const { id } = await params;
 
   const match = await fetchMatch(id);
@@ -38,7 +42,11 @@ export default async function MatchPage({ params }: { params: Params }) {
     <div>
       <SubHeader
         goBack
-        button={<LinkButton link={`/matches/${id}/edit`} label="Edit Match" />}
+        button={
+          isAdmin ? (
+            <LinkButton link={`/matches/${id}/edit`} label="Edit Match" />
+          ) : null
+        }
       >
         Match Details
       </SubHeader>

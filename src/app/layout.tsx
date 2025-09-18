@@ -11,7 +11,6 @@ import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
 import { AppLayout } from "@/components/AppLayout";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "../../auth";
 
 export const metadata = {
   title: "My Mantine app",
@@ -23,20 +22,20 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-  console.log("SESSION", session);
   return (
     <html lang="en" {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>
-          <Notifications />
-          <ModalsProvider>
-            <AppLayout>{children}</AppLayout>
-          </ModalsProvider>
-        </MantineProvider>
+        <SessionProvider>
+          <MantineProvider>
+            <Notifications />
+            <ModalsProvider>
+              <AppLayout>{children}</AppLayout>
+            </ModalsProvider>
+          </MantineProvider>
+        </SessionProvider>
       </body>
     </html>
   );

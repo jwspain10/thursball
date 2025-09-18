@@ -3,7 +3,7 @@ import { auth } from "../auth";
 export const middleware = auth((req) => {
   const isAdmin = req.auth?.user?.role === "ADMIN";
   if (!isAdmin) {
-    return Response.redirect(new URL("/", req.url));
+    return Response.redirect(new URL("/error/auth", req.url));
   }
 });
 

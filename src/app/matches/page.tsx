@@ -3,8 +3,12 @@ import prisma from "../../../lib/prisma";
 import { LinkButton } from "@/components/LinkButton";
 import { Flex, NavLink } from "@mantine/core";
 import MatchScoreBox from "./components/MatchScoreBox";
+import { auth } from "../../../auth";
+import { getAuthRole } from "@/utils/getAuthRole";
 
 export default async function MatchesPage() {
+  const session = await auth();
+  const { isAdmin } = getAuthRole(session);
   const matches = await prisma.match.findMany({
     include: {
       team1: true,
@@ -16,7 +20,7 @@ export default async function MatchesPage() {
   });
   return (
     <div>
-      <LinkButton link="/matches/add" label="Add Match" />
+      {isAdmin && <LinkButton link="/matches/add" label="Add Match" />}
       {matches.map((match) => {
         const { id, matchDate, team1, team2, scoreTeam1, scoreTeam2 } = match;
         return (

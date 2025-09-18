@@ -1,3 +1,4 @@
+import { Button } from "@mantine/core";
 import { signOut } from "../../auth";
 
 export default function SignOut() {
@@ -8,7 +9,9 @@ export default function SignOut() {
         await signOut();
       }}
     >
-      <button type="submit">Sign out</button>
+      <Button type="submit" color="pink">
+        Sign out
+      </Button>
     </form>
   );
 }
