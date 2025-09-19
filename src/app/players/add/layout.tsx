@@ -1,5 +1,5 @@
 import React from "react";
-import { SubHeader } from "@/components/SubHeader";
+import { SubHeader } from "@/components/navigation/SubHeader";
 
 interface Props {
   children: React.ReactNode;

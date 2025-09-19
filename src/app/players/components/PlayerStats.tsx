@@ -9,7 +9,7 @@ interface Props {
 export default async function PlayerStats({ playerId }: Props) {
   const { _sum, _count } = (await fetchPlayerStats(playerId)) || {};
 
-  const { goals, assists, conceded, mvp } = _sum || {};
+  const { goals, assists, mvp } = _sum || {};
 
   const rows = [
     {
@@ -26,11 +26,6 @@ export default async function PlayerStats({ playerId }: Props) {
       label: "Assists",
       value: assists || 0,
       average: getAverage(_count?.matchId || 0, assists || 0),
-    },
-    {
-      label: "Conceded",
-      value: conceded || 0,
-      average: getAverage(_count?.matchId || 0, conceded || 0),
     },
     {
       label: "Mvp",

@@ -17,7 +17,6 @@ export const initialMatchPlayers: IMatchPlayerIdsInput = {
 export const initialStatsValues = {
   goals: 0,
   assists: 0,
-  conceded: 0,
   mvp: 0,
 };
 

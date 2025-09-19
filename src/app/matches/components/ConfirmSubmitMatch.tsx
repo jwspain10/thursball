@@ -30,12 +30,11 @@ export default function ConfirmSubmitMatch({ onSubmit }: Props) {
 
   const getRows = (teamPlayers: IMatchPlayerStatsInput[]) => {
     return teamPlayers?.map((player) => {
-      const { goals, assists, conceded, mvp } = player;
+      const { goals, assists, mvp } = player;
       return {
         name: player.player.name,
         goals,
         assists,
-        conceded,
         mvp,
       };
     });
@@ -45,7 +44,6 @@ export default function ConfirmSubmitMatch({ onSubmit }: Props) {
     { key: "name", label: "" },
     { key: "goals", label: "Gs" },
     { key: "assists", label: "As" },
-    { key: "conceded", label: "Cn" },
     { key: "mvp", label: "Mvp" },
   ];
 

@@ -21,6 +21,5 @@ export type IPlayerInMatch = {
   player: Player;
   goals: number;
   assists: number;
-  conceded: number;
   mvp: number;
 };

@@ -23,11 +23,6 @@ export default function PlayerStatsLoading() {
       average: StatSkeleton(),
     },
     {
-      label: "Conceded",
-      value: StatSkeleton(),
-      average: StatSkeleton(),
-    },
-    {
       label: "Mvp",
       value: StatSkeleton(),
       average: StatSkeleton(),

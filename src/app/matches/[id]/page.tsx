@@ -1,6 +1,6 @@
-import { LinkButton } from "@/components/LinkButton";
+import { LinkButton } from "@/components/navigation/LinkButton";
 import { Params } from "@/app/types";
-import { SubHeader } from "@/components/SubHeader";
+import { SubHeader } from "@/components/navigation/SubHeader";
 import MatchDetails from "../components/MatchDetails";
 import { fetchMatch } from "../api/fetchMatch";
 import { IMatchPlayerStatsResponse } from "../types";
@@ -17,12 +17,12 @@ export default async function MatchPage({ params }: { params: Params }) {
 
   const getRows = (teamPlayers: IMatchPlayerStatsResponse[]) => {
     return teamPlayers?.map((player) => {
-      const { goals, assists, conceded, mvp } = player;
+      const { goals, assists, mvp } = player;
       return {
         name: player.player.name,
         goals,
         assists,
-        conceded,
+
         mvp,
       };
     });
@@ -34,7 +34,6 @@ export default async function MatchPage({ params }: { params: Params }) {
     { key: "name", label: "" },
     { key: "goals", label: "Gs" },
     { key: "assists", label: "As" },
-    { key: "conceded", label: "Cn" },
     { key: "mvp", label: "Mvp" },
   ];
 

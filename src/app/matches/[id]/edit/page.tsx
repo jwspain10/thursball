@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import CustomModal from "@/components/CustomModal";
-import { SubHeader } from "@/components/SubHeader";
+import { SubHeader } from "@/components/navigation/SubHeader";
 import { fetchMatch, deleteMatch } from "../../api";
 import { initialMatchValues, mapMatchDataToMatchForm } from "../../schema";
 import { IMatchDetailsInput } from "../../types";

@@ -1,4 +1,4 @@
-import { SubHeader } from "@/components/SubHeader";
+import { SubHeader } from "@/components/navigation/SubHeader";
 import CustomTable from "@/components/CustomTable";
 import { fetchAllPlayerStats } from "./api/fetchAllPlayerStats";
 
@@ -16,7 +16,6 @@ export default async function StatsPage() {
         losses,
         goals,
         assists,
-        conceded,
         mvps,
       } = stat;
 
@@ -30,7 +29,6 @@ export default async function StatsPage() {
         goals,
         assists,
         mvps,
-        conceded,
       };
     });
   };
@@ -43,7 +41,6 @@ export default async function StatsPage() {
     { key: "losses", label: "L" },
     { key: "goals", label: "Gs" },
     { key: "assists", label: "As" },
-    { key: "conceded", label: "Cn" },
     { key: "mvp", label: "Mvp" },
   ];
 

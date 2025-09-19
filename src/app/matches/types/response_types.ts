@@ -1,6 +1,5 @@
 export interface IMatchPlayerStatsResponse {
   assists: number;
-  conceded: number;
   goals: number;
   id: string;
   matchId: string;

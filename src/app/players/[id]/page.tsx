@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import { LinkButton } from "@/components/LinkButton";
+import { LinkButton } from "@/components/navigation/LinkButton";
 import { Params } from "@/app/types";
-import { SubHeader } from "@/components/SubHeader";
+import { SubHeader } from "@/components/navigation/SubHeader";
 
 import PlayerMatchStats from "../components/PlayerMatchStats";
 import PlayerStatsLoading from "../components/PlayerStatsLoading";

@@ -16,7 +16,6 @@ export interface IMatchPlayerStatsInput {
   player: { name: string };
   goals: number;
   assists: number;
-  conceded: number;
   mvp: number;
 }
 

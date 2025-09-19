@@ -41,13 +41,6 @@ export default function StatsForm({ values, onSubmit }: Props) {
         />
         <ControlledNumberInput
           control={control}
-          inputName={"conceded"}
-          label="Conceded"
-          defaultValue={values?.conceded}
-          errors={errors?.conceded}
-        />
-        <ControlledNumberInput
-          control={control}
           inputName={"mvp"}
           label="MVP"
           defaultValue={values?.mvp}

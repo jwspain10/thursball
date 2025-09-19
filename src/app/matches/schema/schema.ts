@@ -35,11 +35,6 @@ export const statsSchema = z.object({
     .int()
     .min(0, { message: "Score must be a non-negative integer" })
     .max(99, { message: "Score must be less than 100" }),
-  conceded: z
-    .number()
-    .int()
-    .min(0, { message: "Score must be a non-negative integer" })
-    .max(99, { message: "Score must be less than 100" }),
   mvp: z
     .number()
     .int()

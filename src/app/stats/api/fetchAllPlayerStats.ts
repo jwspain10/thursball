@@ -10,7 +10,6 @@ type PlayerRecord = {
   draws: number;
   goals: number;
   assists: number;
-  conceded: number;
   mvps: number;
 };
 
@@ -43,7 +42,6 @@ export async function fetchAllPlayerStats(): Promise<PlayerRecord[]> {
         draws: 0,
         goals: 0,
         assists: 0,
-        conceded: 0,
         mvps: 0,
       });
     }
@@ -93,7 +91,6 @@ export async function fetchAllPlayerStats(): Promise<PlayerRecord[]> {
       if (!rec) continue;
       rec.goals += ps.goals;
       rec.assists += ps.assists;
-      rec.conceded += ps.conceded;
       rec.mvps += ps.mvp ?? 0; // assuming mvps is an int field in MatchPlayerStats
     }
   }

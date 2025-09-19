@@ -11,9 +11,9 @@ export default async function HomePage() {
     : "You are not currently logged in";
 
   return (
-    <Center>
+    <Center maw={400}>
       <Box>
-        {message} <Box>{session ? <SignOut /> : <SignIn />}</Box>
+        {message} {session ? <SignOut /> : <SignIn />}
       </Box>
     </Center>
   );

@@ -8,14 +8,13 @@ export const rows = (
   onSubmit?: (values: IMatchPlayerStatsInput) => void
 ) =>
   selectedPlayers?.map((player) => {
-    const { playerId, goals, assists, conceded, mvp } = player;
+    const { playerId, goals, assists, mvp } = player;
 
     return (
       <tr key={playerId}>
         <td>{player.player.name}</td>
         <td>{goals}</td>
         <td>{assists}</td>
-        <td>{conceded}</td>
         <td>{mvp}</td>
         {onSubmit && (
           <td>

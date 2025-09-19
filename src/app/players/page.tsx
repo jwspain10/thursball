@@ -1,4 +1,4 @@
-import { LinkButton } from "@/components/LinkButton";
+import { LinkButton } from "@/components/navigation/LinkButton";
 import { getCountry } from "@/utils/getCountry";
 import { Avatar, NavLink } from "@mantine/core";
 import { fetchAllPlayers } from "./api";

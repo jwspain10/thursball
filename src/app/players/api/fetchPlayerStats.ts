@@ -9,7 +9,6 @@ export const fetchPlayerStats = async (playerId: string) => {
       _sum: {
         goals: true,
         assists: true,
-        conceded: true,
         mvp: true,
       },
       _count: { matchId: true },

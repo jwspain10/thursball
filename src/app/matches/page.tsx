@@ -1,6 +1,6 @@
 import React from "react";
 import prisma from "../../../lib/prisma";
-import { LinkButton } from "@/components/LinkButton";
+import { LinkButton } from "@/components/navigation/LinkButton";
 import { Flex, NavLink } from "@mantine/core";
 import MatchScoreBox from "./components/MatchScoreBox";
 import { auth } from "../../../auth";

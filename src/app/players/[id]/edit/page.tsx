@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IPlayer, IPlayerInput } from "@/app/types";
-import { SubHeader } from "@/components/SubHeader";
+import { SubHeader } from "@/components/navigation/SubHeader";
 import CustomModal from "@/components/CustomModal";
 import { fetchPlayer, updatePlayer, deletePlayer } from "../../api";
 import { initialValues } from "../../components/forms/initialValues";

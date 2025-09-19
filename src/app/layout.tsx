@@ -9,12 +9,13 @@ import {
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
-import { AppLayout } from "@/components/AppLayout";
+
 import { SessionProvider } from "next-auth/react";
+import { AppLayout } from "@/components/navigation/AppLayout";
 
 export const metadata = {
-  title: "My Mantine app",
-  description: "I have followed setup instructions carefully",
+  title: "Thursball",
+  description: "Results and Stats",
 };
 
 export default async function RootLayout({

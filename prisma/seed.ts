@@ -116,7 +116,6 @@ async function main() {
           teamId: team1Players.includes(player) ? team1.id : team2.id,
           goals: Math.floor(Math.random() * 3),
           assists: Math.floor(Math.random() * 2),
-          conceded: Math.floor(Math.random()),
           mvp: Math.random() > 0.95 ? 1 : 0,
         },
       });
