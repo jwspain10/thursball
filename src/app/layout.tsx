@@ -6,12 +6,14 @@ import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
+  createTheme,
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
 
 import { SessionProvider } from "next-auth/react";
 import { AppLayout } from "@/components/navigation/AppLayout";
+import { font } from "@/theme/font";
 
 export const metadata = {
   title: "Thursball",
@@ -23,20 +25,24 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const theme = createTheme({
+    fontFamily: `Lexend, sans-serif`,
+    primaryColor: "cyan",
+  });
+
   return (
-    <html lang="en" {...mantineHtmlProps}>
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <SessionProvider>
-          <MantineProvider>
+    <html lang="en" {...mantineHtmlProps} data-mantine-color-scheme="dark">
+      <head></head>
+      <body className={font.className}>
+        <ColorSchemeScript defaultColorScheme="dark" />
+        <MantineProvider theme={theme} defaultColorScheme="dark">
+          <SessionProvider>
             <Notifications />
             <ModalsProvider>
               <AppLayout>{children}</AppLayout>
             </ModalsProvider>
-          </MantineProvider>
-        </SessionProvider>
+          </SessionProvider>
+        </MantineProvider>
       </body>
     </html>
   );
