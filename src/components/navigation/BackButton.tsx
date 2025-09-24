@@ -9,12 +9,13 @@ export function BackButton() {
 
   return (
     <ActionIcon
-      variant="filled"
+      variant="light"
+      color="gray"
       radius="xl"
       aria-label="Settings"
       onClick={() => router.back()}
     >
-      <FaArrowLeft style={{ width: "70%", height: "70%" }} />
+      <FaArrowLeft />
     </ActionIcon>
   );
 }

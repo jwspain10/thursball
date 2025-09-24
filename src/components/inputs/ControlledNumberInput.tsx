@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Control, Controller, FieldError, Path } from "react-hook-form";
-import { NumberInput, Group, Button, NumberInputHandlers } from "@mantine/core";
+import { NumberInput, Button, NumberInputHandlers, Flex } from "@mantine/core";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 interface Props<T extends object> {
   control: Control<T>;
@@ -34,12 +35,20 @@ export default function ControlledNumberInput<T extends object>({
       control={control}
       render={({ field: { name, value, onChange } }) => {
         return (
-          <Group mt="md" justify="center">
+          <Flex
+            gap="md"
+            justify="center"
+            align="flex-end"
+            direction="row"
+            wrap="wrap"
+          >
             <Button
               onClick={() => handlersRef.current?.decrement()}
-              variant="default"
+              variant="subtle"
+              radius="xl"
+              color="red"
             >
-              -
+              <FaMinus />
             </Button>
             <NumberInput
               handlersRef={handlersRef}
@@ -53,15 +62,20 @@ export default function ControlledNumberInput<T extends object>({
               min={min}
               max={max}
               error={errors?.message}
+              variant="default"
+              size="sm"
+              maw={100}
             />
 
             <Button
               onClick={() => handlersRef.current?.increment()}
-              variant="default"
+              variant="subtle"
+              color="green"
+              radius="xl"
             >
-              +
+              <FaPlus />
             </Button>
-          </Group>
+          </Flex>
         );
       }}
     />

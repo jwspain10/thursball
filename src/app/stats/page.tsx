@@ -1,6 +1,7 @@
 import { SubHeader } from "@/components/navigation/SubHeader";
 import CustomTable from "@/components/CustomTable";
 import { fetchAllPlayerStats } from "./api/fetchAllPlayerStats";
+import { getName } from "@/utils/getName";
 
 export default async function StatsPage() {
   const stats = await fetchAllPlayerStats();
@@ -20,7 +21,7 @@ export default async function StatsPage() {
       } = stat;
 
       return {
-        name,
+        name: getName(name, lastName || "").nameAndInitial,
         lastName,
         played,
         wins,
@@ -46,7 +47,7 @@ export default async function StatsPage() {
 
   return (
     <div>
-      <SubHeader goBack>Stats</SubHeader>
+      <SubHeader goBack>All Stats</SubHeader>
       {stats && <CustomTable rows={getRows()} columns={columns} />}
     </div>
   );

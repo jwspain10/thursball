@@ -1,6 +1,7 @@
-import { Box, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import { useFormContext } from "../providers/FormProvider";
 import MatchScoreBox from "./MatchScoreBox";
+import MatchDate from "./MatchDate";
 
 export default function CurrentMatchOverview() {
   const formContext = useFormContext();
@@ -10,9 +11,7 @@ export default function CurrentMatchOverview() {
     matchDetails &&
     matchPlayerIds && (
       <Box>
-        <Text size="sm" ta="center">
-          {matchDetails.matchDate.toDateString()}
-        </Text>
+        <MatchDate date={matchDetails.matchDate} />
         <MatchScoreBox
           nameTeam1={matchDetails.nameTeam1}
           nameTeam2={matchDetails.nameTeam2}

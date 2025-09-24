@@ -7,6 +7,7 @@ import ControlledMultiSelectInput from "@/components/inputs/ControlledMultiSelec
 import { ISelectOptions } from "@/app/types";
 import { matchPlayersSchema } from "../../schema";
 import { useFormContext } from "../../providers/FormProvider";
+import BoxContainer from "@/components/BoxContainer";
 
 interface Props {
   playerOptions: ISelectOptions[];
@@ -17,7 +18,8 @@ export default function MatchPlayersForm({
   playerOptions,
   onNextClick,
 }: Props) {
-  const { matchPlayerIds, setMatchPlayerIds } = useFormContext() || {};
+  const { matchPlayerIds, setMatchPlayerIds, matchDetails } =
+    useFormContext() || {};
 
   const {
     control,
@@ -39,32 +41,34 @@ export default function MatchPlayersForm({
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <>
-        <div>Team 1</div>
-        <ControlledMultiSelectInput
-          control={control}
-          inputName={"team1Players"}
-          label="Players"
-          options={playerOptions}
-          defaultValue={matchPlayerIds?.team1Players}
-          errors={
-            Array.isArray(errors?.team1Players)
-              ? errors?.team1Players[0]
-              : errors?.team1Players
-          }
-        />
-        <div>Team 2</div>
-        <ControlledMultiSelectInput
-          control={control}
-          inputName={"team2Players"}
-          label="Players"
-          options={playerOptions}
-          defaultValue={matchPlayerIds?.team2Players}
-          errors={
-            Array.isArray(errors?.team2Players)
-              ? errors?.team2Players[0]
-              : errors?.team2Players
-          }
-        />
+        <BoxContainer title={matchDetails?.nameTeam1}>
+          <ControlledMultiSelectInput
+            control={control}
+            inputName={"team1Players"}
+            label="Players"
+            options={playerOptions}
+            defaultValue={matchPlayerIds?.team1Players}
+            errors={
+              Array.isArray(errors?.team1Players)
+                ? errors?.team1Players[0]
+                : errors?.team1Players
+            }
+          />
+        </BoxContainer>
+        <BoxContainer title={matchDetails?.nameTeam2}>
+          <ControlledMultiSelectInput
+            control={control}
+            inputName={"team2Players"}
+            label="Players"
+            options={playerOptions}
+            defaultValue={matchPlayerIds?.team2Players}
+            errors={
+              Array.isArray(errors?.team2Players)
+                ? errors?.team2Players[0]
+                : errors?.team2Players
+            }
+          />
+        </BoxContainer>
       </>
     </FormContainer>
   );

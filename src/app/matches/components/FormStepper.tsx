@@ -51,7 +51,7 @@ export default function FormStepper({ onSubmit }: Props) {
   return (
     <FormProvider>
       <>
-        <Stepper active={active} onStepClick={setActive}>
+        <Stepper active={active} size="xs" onStepClick={setActive}>
           {steps.map((step) => {
             return (
               <Stepper.Step key={step.key}>
@@ -61,8 +61,8 @@ export default function FormStepper({ onSubmit }: Props) {
             );
           })}
         </Stepper>
-        <Group justify="center" mt="xl">
-          <Button variant="default" onClick={prevStep}>
+        <Group justify="flex-start">
+          <Button variant="subtle" color="pink" onClick={prevStep}>
             Back
           </Button>
         </Group>

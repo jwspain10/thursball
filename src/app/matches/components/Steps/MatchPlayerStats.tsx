@@ -6,8 +6,8 @@ import { IMatchPlayerStatsInput } from "../../types";
 import { useEffect, useState } from "react";
 import FormContainer from "@/components/FormContainer";
 import { useForm } from "react-hook-form";
-import StatsFormModal from "../StatsFormModal";
-import CustomTable from "@/components/CustomTable";
+import StatsForm from "../StatsForm";
+import TeamListInStepper from "../TeamListInStepper";
 
 interface Props {
   playerOptions: ISelectOptions[];
@@ -21,8 +21,12 @@ export default function MatchPlayerStatsForm({
   const [currentPlayerStats, setCurrentPlayerStats] = useState<
     IMatchPlayerStatsInput[]
   >([]);
-  const { matchPlayerStats, matchPlayerIds, setMatchPlayerStats } =
-    useFormContext() || {};
+  const {
+    matchDetails,
+    matchPlayerStats,
+    matchPlayerIds,
+    setMatchPlayerStats,
+  } = useFormContext() || {};
 
   const { handleSubmit } = useForm();
 
@@ -84,36 +88,40 @@ export default function MatchPlayerStatsForm({
   };
 
   const getRows = (selectedPlayers: IMatchPlayerStatsInput[]) => {
-    return selectedPlayers?.map((player) => {
+    const mappedPlayers = selectedPlayers?.map((player) => {
       const { goals, assists, mvp } = player;
       return {
         name: player.player.name,
         goals,
         assists,
         mvp,
-        stats: <StatsFormModal player={player} onSubmit={onSubmitStats} />,
+        stats: (
+          <StatsForm
+            values={{ ...player, player: { name: player.player.name } }}
+            onSubmit={onSubmitStats}
+          />
+        ),
       };
     });
+    return mappedPlayers;
   };
-
-  const columns = [
-    { key: "name", label: "" },
-    { key: "goals", label: "Gs" },
-    { key: "assists", label: "As" },
-    { key: "mvp", label: "Mvp" },
-    { key: "stats", label: "" },
-  ];
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <>
-        <div>Team1</div>
+        <TeamListInStepper
+          teamName={matchDetails?.nameTeam1 || ""}
+          teamScore={matchDetails?.scoreTeam1}
+          players={team1Players}
+          rows={getRows(team1Players)}
+        />
 
-        <CustomTable rows={getRows(team1Players)} columns={columns} />
-
-        <div>Team2</div>
-
-        <CustomTable rows={getRows(team2Players)} columns={columns} />
+        <TeamListInStepper
+          teamName={matchDetails?.nameTeam2 || ""}
+          teamScore={matchDetails?.scoreTeam2}
+          players={team2Players}
+          rows={getRows(team2Players)}
+        />
       </>
     </FormContainer>
   );

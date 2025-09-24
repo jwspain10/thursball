@@ -17,15 +17,19 @@ export default function MatchScoreBox({
     <Box>
       <Group justify="center" gap="xs">
         <Text>{nameTeam1}</Text>
-        <Text>
-          <Text span fw="700">
-            {scoreTeam1}
-          </Text>{" "}
-          -{" "}
-          <Text span fw="700">
-            {scoreTeam2}
-          </Text>
-        </Text>
+        <Box m={4} p={8} bg="gray.1" bdrs={8} w={90}>
+          <Group justify="center" gap="xs">
+            <Text span fw="700" c="dark">
+              {scoreTeam1}
+            </Text>
+            <Text span fw="700" c="gray.7">
+              -
+            </Text>
+            <Text span fw="700" c="dark">
+              {scoreTeam2}
+            </Text>
+          </Group>
+        </Box>
         <Text>{nameTeam2}</Text>
       </Group>
     </Box>

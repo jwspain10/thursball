@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import { Box, Button, Container, Group, LoadingOverlay } from "@mantine/core";
+import { modals } from "@mantine/modals";
 
 interface Props {
   children: React.ReactElement;
@@ -20,11 +21,14 @@ export default function FormContainer({ children, onSubmit, loading }: Props) {
           ev.preventDefault();
           ev.stopPropagation();
           onSubmit(ev);
+          modals.closeAll();
         }}
       >
         <Box>{children}</Box>
         <Group justify="flex-end" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" color="teal" variant="light">
+            Submit
+          </Button>
         </Group>
       </form>
     </Container>

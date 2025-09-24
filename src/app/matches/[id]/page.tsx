@@ -22,7 +22,6 @@ export default async function MatchPage({ params }: { params: Params }) {
         name: player.player.name,
         goals,
         assists,
-
         mvp,
       };
     });
@@ -50,14 +49,14 @@ export default async function MatchPage({ params }: { params: Params }) {
         Match Details
       </SubHeader>
       {match && <MatchDetails match={match} />}
-      <h3>Team 1</h3>
+      <h3>{match?.team1.name}</h3>
       {match && (
         <CustomTable
           rows={getRows(team1?.matchPlayerStats || [])}
           columns={columns}
         />
       )}
-      <h3>Team 2</h3>
+      <h3>{match?.team2.name}</h3>
       {match && (
         <CustomTable
           rows={getRows(team2?.matchPlayerStats || [])}
