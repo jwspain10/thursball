@@ -12,7 +12,6 @@ export function NavLinks() {
       key={item.label}
       active={currentPath === item.link}
       label={item.label}
-      description={item.description}
     />
   ));
 

@@ -8,8 +8,7 @@ export default function CurrentMatchOverview() {
   const { matchDetails, matchPlayerIds } = formContext || {};
 
   return (
-    matchDetails &&
-    matchPlayerIds && (
+    matchDetails && (
       <Box>
         <MatchDate date={matchDetails.matchDate} />
         <MatchScoreBox

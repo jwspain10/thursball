@@ -13,7 +13,7 @@ export default function CustomLoader({ label }: Props) {
       justify="center"
       gap="xs"
     >
-      <Loader color="blue" size="lg" />
+      <Loader size="lg" />
       {label && <Text size="sm">{label}</Text>}
     </Stack>
   );

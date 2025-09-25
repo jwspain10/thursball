@@ -29,6 +29,22 @@ export default function ControlledNumberInput<T extends object>({
 }: Props<T>) {
   const handlersRef = useRef<NumberInputHandlers>(null);
 
+  const btn = (type: string) => {
+    let onClick = () => handlersRef.current?.decrement();
+    let icon = <FaMinus />;
+    let color = "red";
+    if (type === "plus") {
+      onClick = () => handlersRef.current?.increment();
+      color = "green";
+      icon = <FaPlus />;
+    }
+    return (
+      <Button onClick={onClick} variant="subtle" radius="lg" color={color}>
+        {icon}
+      </Button>
+    );
+  };
+
   return (
     <Controller
       name={inputName}
@@ -42,14 +58,7 @@ export default function ControlledNumberInput<T extends object>({
             direction="row"
             wrap="wrap"
           >
-            <Button
-              onClick={() => handlersRef.current?.decrement()}
-              variant="subtle"
-              radius="xl"
-              color="red"
-            >
-              <FaMinus />
-            </Button>
+            {btn("minus")}
             <NumberInput
               handlersRef={handlersRef}
               name={name}
@@ -64,17 +73,11 @@ export default function ControlledNumberInput<T extends object>({
               error={errors?.message}
               variant="default"
               size="sm"
-              maw={100}
+              hideControls
+              maw={200}
             />
 
-            <Button
-              onClick={() => handlersRef.current?.increment()}
-              variant="subtle"
-              color="green"
-              radius="xl"
-            >
-              <FaPlus />
-            </Button>
+            {btn("plus")}
           </Flex>
         );
       }}

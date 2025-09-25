@@ -38,6 +38,7 @@ export default function ControlledMultiSelectInput<T extends object>({
             data={options}
             onChange={onChange}
             error={errors?.message}
+            hidePickedOptions
           />
         );
       }}

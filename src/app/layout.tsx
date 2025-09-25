@@ -13,7 +13,8 @@ import { ModalsProvider } from "@mantine/modals";
 
 import { SessionProvider } from "next-auth/react";
 import { AppLayout } from "@/components/navigation/AppLayout";
-import { font } from "@/theme/font";
+import { font } from "@/app/theme/font";
+import { components } from "@/app/theme/components";
 
 export const metadata = {
   title: "Thursball",
@@ -27,7 +28,8 @@ export default async function RootLayout({
 }) {
   const theme = createTheme({
     fontFamily: `Lexend, sans-serif`,
-    primaryColor: "cyan",
+    primaryColor: "teal",
+    components: components,
   });
 
   return (

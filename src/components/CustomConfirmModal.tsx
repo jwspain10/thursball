@@ -20,5 +20,9 @@ export default function CustomConfirmModal({
       children: children,
     });
 
-  return <Button onClick={openModal}>{label}</Button>;
+  return (
+    <Button onClick={openModal} size="xs" radius="lg">
+      {label}
+    </Button>
+  );
 }

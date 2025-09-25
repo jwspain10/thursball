@@ -62,7 +62,7 @@ export default function FormStepper({ onSubmit }: Props) {
           })}
         </Stepper>
         <Group justify="flex-start">
-          <Button variant="subtle" color="pink" onClick={prevStep}>
+          <Button color="red" size="xs" radius="lg" onClick={prevStep}>
             Back
           </Button>
         </Group>

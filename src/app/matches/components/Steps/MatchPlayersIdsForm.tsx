@@ -31,6 +31,15 @@ export default function MatchPlayersForm({
     resolver: zodResolver(matchPlayersSchema),
   });
 
+  const { team1Players, team2Players } = watch();
+
+  const currentTeam1PlayerOptions = playerOptions.filter((player) => {
+    return !team2Players.includes(player.value);
+  });
+  const currentTeam2PlayerOptions = playerOptions.filter((player) => {
+    return !team1Players.includes(player.value);
+  });
+
   const onSubmit = () => {
     if (setMatchPlayerIds) {
       setMatchPlayerIds(watch());
@@ -46,7 +55,7 @@ export default function MatchPlayersForm({
             control={control}
             inputName={"team1Players"}
             label="Players"
-            options={playerOptions}
+            options={currentTeam1PlayerOptions}
             defaultValue={matchPlayerIds?.team1Players}
             errors={
               Array.isArray(errors?.team1Players)
@@ -60,7 +69,7 @@ export default function MatchPlayersForm({
             control={control}
             inputName={"team2Players"}
             label="Players"
-            options={playerOptions}
+            options={currentTeam2PlayerOptions}
             defaultValue={matchPlayerIds?.team2Players}
             errors={
               Array.isArray(errors?.team2Players)
