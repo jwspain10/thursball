@@ -5,7 +5,7 @@ import MatchDate from "./MatchDate";
 
 export default function CurrentMatchOverview() {
   const formContext = useFormContext();
-  const { matchDetails, matchPlayerIds } = formContext || {};
+  const { matchDetails } = formContext || {};
 
   return (
     matchDetails && (

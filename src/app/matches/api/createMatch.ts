@@ -72,6 +72,7 @@ export const createMatch = async (data: IMatchSubmitInput) => {
     await prisma.matchPlayerStats.createMany({ data: allStats });
 
     revalidatePath("/matches");
+    revalidatePath("/stats");
   } catch (error) {
     console.error("Error creating match:", error);
     throw new Error(`Failed to create match: ${error}`);

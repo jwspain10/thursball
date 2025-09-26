@@ -13,7 +13,7 @@ type PlayerRecord = {
   mvps: number;
 };
 
-export async function fetchAllPlayerStats(): Promise<PlayerRecord[]> {
+export const fetchAllPlayerStats = async (): Promise<PlayerRecord[]> => {
   // Step 1: Get all matches with players and stats
   const matches = await prisma.match.findMany({
     include: {
@@ -91,9 +91,9 @@ export async function fetchAllPlayerStats(): Promise<PlayerRecord[]> {
       if (!rec) continue;
       rec.goals += ps.goals;
       rec.assists += ps.assists;
-      rec.mvps += ps.mvp ?? 0; // assuming mvps is an int field in MatchPlayerStats
+      rec.mvps += ps.mvp ?? 0;
     }
   }
 
   return Array.from(statsMap.values()).sort((a, b) => b.played - a.played);
-}
+};

@@ -1,24 +1,16 @@
 import React from "react";
-import prisma from "../../../lib/prisma";
 import { LinkButton } from "@/components/navigation/LinkButton";
 import { NavLink, Stack } from "@mantine/core";
 import MatchScoreBox from "./components/MatchScoreBox";
 import { auth } from "../../../auth";
 import { getAuthRole } from "@/utils/getAuthRole";
 import MatchDate from "./components/MatchDate";
+import { fetchMatches } from "./api/fetchMatches";
 
 export default async function MatchesPage() {
   const session = await auth();
   const { isAdmin } = getAuthRole(session);
-  const matches = await prisma.match.findMany({
-    include: {
-      team1: true,
-      team2: true,
-    },
-    orderBy: {
-      matchDate: "desc",
-    },
-  });
+  const matches = await fetchMatches();
   return (
     <div>
       {isAdmin && <LinkButton link="/matches/add" label="Add Match" />}
