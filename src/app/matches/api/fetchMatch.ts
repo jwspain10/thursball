@@ -11,7 +11,7 @@ export const fetchMatch = async (id: string) =>
           matchPlayerStats: {
             include: {
               player: {
-                select: { name: true },
+                select: { name: true, lastName: true },
               },
             },
           },
@@ -22,7 +22,7 @@ export const fetchMatch = async (id: string) =>
           matchPlayerStats: {
             include: {
               player: {
-                select: { name: true },
+                select: { name: true, lastName: true },
               },
             },
           },

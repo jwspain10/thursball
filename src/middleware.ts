@@ -13,5 +13,6 @@ export const config = {
     "/matches/add",
     "/matches/:id/edit",
     "/players/:id/edit",
+    "/admin",
   ],
 };

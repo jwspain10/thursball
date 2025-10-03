@@ -4,7 +4,7 @@ export interface IMatchPlayerStatsResponse {
   id: string;
   matchId: string;
   mvp: number;
-  player: { name: string };
+  player: { name: string; lastName: string | null };
   playerId: string;
   teamId: string;
 }

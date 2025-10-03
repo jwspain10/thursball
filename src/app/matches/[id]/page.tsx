@@ -7,6 +7,7 @@ import { IMatchPlayerStatsResponse } from "../types";
 import CustomTable from "@/components/CustomTable";
 import { auth } from "../../../../auth";
 import { getAuthRole } from "@/utils/getAuthRole";
+import { getName } from "@/utils/getName";
 
 export default async function MatchPage({ params }: { params: Params }) {
   const session = await auth();
@@ -17,9 +18,14 @@ export default async function MatchPage({ params }: { params: Params }) {
 
   const getRows = (teamPlayers: IMatchPlayerStatsResponse[]) => {
     return teamPlayers?.map((player) => {
-      const { goals, assists, mvp } = player;
+      const {
+        goals,
+        assists,
+        mvp,
+        player: { name, lastName },
+      } = player;
       return {
-        name: player.player.name,
+        name: getName(name, lastName || "").nameAndInitial,
         goals,
         assists,
         mvp,
