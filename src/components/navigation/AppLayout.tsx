@@ -25,7 +25,7 @@ export function AppLayout({ children }: Props) {
       <AppShell.Navbar p="md">
         <NavLinks />
       </AppShell.Navbar>
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main style={{ marginBottom: "20px" }}>{children}</AppShell.Main>
     </AppShell>
   );
 }

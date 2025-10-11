@@ -1,7 +1,7 @@
 import { SubHeader } from "@/components/navigation/SubHeader";
-import CustomTable from "@/components/CustomTable";
 import { fetchAllPlayerStats } from "./api/fetchAllPlayerStats";
 import { getName } from "@/utils/getName";
+import CustomSortingTable from "@/components/SortingTable";
 
 export default async function StatsPage() {
   const stats = await fetchAllPlayerStats();
@@ -35,20 +35,20 @@ export default async function StatsPage() {
   };
 
   const columns = [
-    { key: "name", label: "" },
-    { key: "played", label: "Pl" },
+    { key: "name", label: "", size: 120, align: "left", border: true },
+    { key: "played", label: "Pl", border: true },
     { key: "wins", label: "W" },
     { key: "draws", label: "D" },
-    { key: "losses", label: "L" },
+    { key: "losses", label: "L", border: true },
     { key: "goals", label: "Gs" },
-    { key: "assists", label: "As" },
-    { key: "mvp", label: "Mvp" },
+    { key: "assists", label: "As", border: true },
+    { key: "mvps", label: "Mvp" },
   ];
 
   return (
     <div>
       <SubHeader goBack>All Stats</SubHeader>
-      {stats && <CustomTable rows={getRows()} columns={columns} />}
+      {stats && <CustomSortingTable data={getRows()} columns={columns} />}
     </div>
   );
 }
