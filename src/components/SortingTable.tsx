@@ -59,7 +59,7 @@ export default function CustomSortingTable<T extends TableRow>({
     },
     initialState: {
       columnPinning: {
-        left: ["name"],
+        left: ["name", "played"],
       },
     },
   });

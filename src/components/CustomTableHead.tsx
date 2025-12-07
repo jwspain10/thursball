@@ -3,6 +3,7 @@ import { Stack, TableTh, TableThead, TableTr } from "@mantine/core";
 import { flexRender, Table } from "@tanstack/react-table";
 import CustomIcon from "./CustomIcon";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
+import { getPinningStyles } from "@/utils/getPinningStyles";
 
 type Props<T> = { table: Table<T> };
 
@@ -22,7 +23,11 @@ export default function CustomTableHead<T>({ table }: Props<T>) {
             return (
               <TableTh
                 key={header.id}
-                style={{ width: header.column.getSize() }}
+                style={{
+                  ...getPinningStyles(header.column),
+
+                  width: header.column.getSize(),
+                }}
                 ta={"center"}
               >
                 <Stack
