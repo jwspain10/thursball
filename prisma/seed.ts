@@ -15,39 +15,33 @@ async function main() {
     {
       name: "Alice",
       lastName: "LastName",
-      dob: "1992-04-12",
       nationality: "GB",
     },
-    { name: "Bob", lastName: "LastName", dob: "1988-09-30", nationality: "US" },
+    { name: "Bob", lastName: "LastName", nationality: "US" },
     {
       name: "Charlie",
       lastName: "LastName",
-      dob: "1995-06-22",
       nationality: "BR",
     },
     {
       name: "Dana",
       lastName: "LastName",
-      dob: "1990-01-15",
       nationality: "DE",
     },
-    { name: "Eve", lastName: "LastName", dob: "1993-11-05", nationality: "FR" },
+    { name: "Eve", lastName: "LastName", nationality: "FR" },
     {
       name: "Frank",
       lastName: "LastName",
-      dob: "1987-03-28",
       nationality: "IT",
     },
     {
       name: "Grace",
       lastName: "LastName",
-      dob: "1996-12-17",
       nationality: "ES",
     },
     {
       name: "Hank",
       lastName: "LastName",
-      dob: "1991-07-09",
       nationality: "NL",
     },
   ];
@@ -55,9 +49,9 @@ async function main() {
   const players = await Promise.all(
     playerData.map((player) =>
       prisma.player.create({
-        data: { ...player, dob: new Date(player.dob), isActive: true },
-      })
-    )
+        data: { ...player, isActive: true },
+      }),
+    ),
   );
 
   console.log(`✅ Created ${players.length} players`);
@@ -122,7 +116,7 @@ async function main() {
     }
 
     console.log(
-      `⚽ Week ${week}: Match created with score ${scoreTeam1} - ${scoreTeam2}`
+      `⚽ Week ${week}: Match created with score ${scoreTeam1} - ${scoreTeam2}`,
     );
   }
 

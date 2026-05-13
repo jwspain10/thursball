@@ -5,7 +5,10 @@ import prisma from "../../../../lib/prisma";
 
 export const fetchAllPlayers = cache(async () => {
   try {
-    const players = await prisma.player.findMany({ where: { isActive: true } });
+    const players = await prisma.player.findMany({
+      where: { isActive: true },
+      orderBy: { name: "asc" },
+    });
 
     return players;
   } catch (error) {

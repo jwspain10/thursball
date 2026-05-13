@@ -1,4 +1,3 @@
-import { getAge } from "@/utils/getAge";
 import { getCountry } from "@/utils/getCountry";
 import { Avatar, Box, Group, Stack, Text } from "@mantine/core";
 import ReactCountryFlag from "react-country-flag";
@@ -14,7 +13,6 @@ export default async function PlayerProfile({
     where: { id: playerId },
   });
 
-  const birthday = new Date(player?.dob || "");
   const { fullName } = getName(player?.name || "", player?.lastName || "");
   return (
     player && (
@@ -34,7 +32,7 @@ export default async function PlayerProfile({
                   style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}
                   countryCode={player.nationality}
                 />
-                {getCountry(player?.nationality || "")}, {getAge(birthday)}
+                {getCountry(player?.nationality || "")}
               </Text>
             </Stack>
           </Box>

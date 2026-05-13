@@ -26,7 +26,15 @@ export default function FormStepper({ onSubmit }: Props) {
   const { playerOptions } = usePlayerOptions();
 
   const steps = [
-    { key: 1, comp: <MatchDetailsForm onNextClick={nextStep} /> },
+    {
+      key: 1,
+      comp: (
+        <MatchDetailsForm
+          onNextClick={nextStep}
+          playerOptions={playerOptions}
+        />
+      ),
+    },
     {
       key: 2,
       comp: (

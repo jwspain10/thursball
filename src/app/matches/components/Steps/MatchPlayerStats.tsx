@@ -36,9 +36,9 @@ export default function MatchPlayerStatsForm({
   useEffect(() => {
     const getTeamPlayers = (teamPlayers: string[]) =>
       teamPlayers.map((id) => {
-        const playerStats = currentPlayerStats.find(
-          (player) => player.playerId === id
-        );
+        const playerStats =
+          currentPlayerStats.find((player) => player.playerId === id) ||
+          matchPlayerStats?.find((player) => player.playerId === id);
 
         if (playerStats) {
           return playerStats;
@@ -74,10 +74,10 @@ export default function MatchPlayerStatsForm({
   };
 
   const team1Players = currentPlayerStats?.filter((player) =>
-    matchPlayerIds?.team1Players.includes(player.playerId)
+    matchPlayerIds?.team1Players.includes(player.playerId),
   );
   const team2Players = currentPlayerStats?.filter((player) =>
-    matchPlayerIds?.team2Players.includes(player.playerId)
+    matchPlayerIds?.team2Players.includes(player.playerId),
   );
 
   const onSubmit = () => {

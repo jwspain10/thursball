@@ -6,6 +6,5 @@ export const schema = z.object({
     .string()
     .min(1, { message: "Last name should have at least 1 letter" }),
   nationality: z.string().min(2, { message: "Select a country" }),
-  dob: z.date(),
   isActive: z.boolean(),
 });

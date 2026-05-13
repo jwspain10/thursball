@@ -12,10 +12,12 @@ export const usePlayerOptions = () => {
   useEffect(() => {
     const getPlayers = async () => {
       await fetchAllPlayers().then((players) => {
-        const options = players.map((player) => ({
-          value: player.id,
-          label: getName(player.name, player.lastName || "").nameAndInitial,
-        }));
+        const options = players
+          .map((player) => ({
+            value: player.id,
+            label: getName(player.name, player.lastName || "").nameAndInitial,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
         setPlayerOptions(options);
       });
     };

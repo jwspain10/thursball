@@ -7,7 +7,6 @@ import { schema } from "./schema";
 import { IPlayerInput } from "@/app/types";
 import ControlledTextInput from "@/components/inputs/ControlledTextInput";
 import ControlledSelectInput from "@/components/inputs/ControlledSelectInput";
-import ControlledDateInput from "@/components/inputs/ControlledDateInput";
 import ControlledCheckbox from "@/components/inputs/ControlledCheckbox";
 import FormContainer from "@/components/FormContainer";
 import { Stack } from "@mantine/core";
@@ -57,13 +56,6 @@ export default function PlayerForm({ values, onSubmit, loading }: Props) {
           options={getCountryOptions()}
           defaultValue={values?.nationality}
           errors={errors?.nationality}
-        />
-        <ControlledDateInput
-          control={control}
-          inputName={"dob"}
-          label={"Date of Birth"}
-          defaultValue={values?.dob}
-          errors={errors?.dob}
         />
         <ControlledCheckbox
           control={control}

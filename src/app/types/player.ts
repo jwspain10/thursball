@@ -4,7 +4,6 @@ export type IPlayer = {
   name: string;
   lastName: string;
   nationality: string;
-  dob: Date;
   isActive: boolean;
 };
 
@@ -12,7 +11,6 @@ export type IPlayerInput = {
   name: string;
   lastName: string;
   nationality: string;
-  dob: Date;
   isActive: boolean;
 };
 

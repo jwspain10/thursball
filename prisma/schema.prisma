@@ -13,7 +13,6 @@ model Player {
   id               String             @id @default(cuid())
   name             String
   lastName         String?
-  dob              DateTime
   nationality      String
   isActive         Boolean            @default(true)
   teamPlayers      TeamPlayer[]
