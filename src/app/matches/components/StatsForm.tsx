@@ -41,14 +41,6 @@ export default function StatsForm({ values, onSubmit }: Props) {
             defaultValue={values?.assists}
             errors={errors?.assists}
           />
-          <ControlledNumberInput
-            control={control}
-            max={1}
-            inputName={"mvp"}
-            label="MVP"
-            defaultValue={values?.mvp}
-            errors={errors?.mvp}
-          />
         </>
       </FormContainer>
     </CustomConfirmModal>

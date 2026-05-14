@@ -8,17 +8,8 @@ export default async function StatsPage() {
 
   const getRows = () => {
     return stats?.map((stat) => {
-      const {
-        name,
-        lastName,
-        played,
-        wins,
-        draws,
-        losses,
-        goals,
-        assists,
-        mvps,
-      } = stat;
+      const { name, lastName, played, wins, draws, losses, goals, assists } =
+        stat;
 
       return {
         name: getName(name, lastName || "").nameAndInitial,
@@ -29,7 +20,6 @@ export default async function StatsPage() {
         losses,
         goals,
         assists,
-        mvps,
       };
     });
   };
@@ -42,7 +32,6 @@ export default async function StatsPage() {
     { key: "losses", label: "L", border: true },
     { key: "goals", label: "Gs" },
     { key: "assists", label: "As", border: true },
-    { key: "mvps", label: "Mvp" },
   ];
 
   return (

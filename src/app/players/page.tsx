@@ -8,11 +8,19 @@ import { getAuthRole } from "@/utils/getAuthRole";
 import ReactCountryFlag from "react-country-flag";
 import { Suspense } from "react";
 import PlayersLoading from "./components/PlayersLoading";
+import ListPagination from "@/components/ListPagination";
 
-export default async function PlayersPage() {
+export default async function PlayersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const currentPage = Math.max(1, Number(pageParam) || 1);
+
   const session = await auth();
   const { isAdmin } = getAuthRole(session);
-  const players = await fetchAllPlayers();
+  const { players, total } = await fetchAllPlayers({ page: currentPage });
 
   const renderFlag = (countryCode: string) => (
     <>
@@ -29,12 +37,13 @@ export default async function PlayersPage() {
     <>
       <div>
         {isAdmin && <LinkButton link="/players/add" label="Add Player" />}
+        <ListPagination total={total} pageSize={10} currentPage={currentPage} />
 
         <Suspense fallback={<PlayersLoading />}>
           {players.map((player) => {
             const { nameAndInitial, initials } = getName(
               player.name,
-              player.lastName || ""
+              player.lastName || "",
             );
 
             return (

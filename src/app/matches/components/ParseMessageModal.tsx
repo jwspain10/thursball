@@ -74,7 +74,6 @@ function buildFormData(
       },
       goals: player.goals,
       assists: player.assists,
-      mvp: player.mvp,
     });
   });
 
@@ -151,16 +150,14 @@ export default function ParseMessageModal({
     <Modal
       opened={opened}
       onClose={handleClose}
-      title={
-        step === "input" ? "Parse WhatsApp message" : "Confirm player matches"
-      }
+      title={step === "input" ? "Parse text" : "Confirm player matches"}
       size="md"
     >
       {step === "input" && (
         <>
           <Text size="sm" c="dimmed" mb="sm">
-            Paste your WhatsApp match summary below. The AI will extract the
-            match details, teams, players, and stats.
+            Paste your match summary below. The AI will extract the match
+            details, teams, players, and stats.
           </Text>
           {error && (
             <Alert color="red" mb="sm">
@@ -168,7 +165,7 @@ export default function ParseMessageModal({
             </Alert>
           )}
           <Textarea
-            placeholder="Paste WhatsApp message here..."
+            placeholder="Paste text here..."
             minRows={6}
             autosize
             value={message}

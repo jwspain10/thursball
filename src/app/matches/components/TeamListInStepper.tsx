@@ -16,7 +16,6 @@ const columns = [
   { key: "name", label: "" },
   { key: "goals", label: "Gs" },
   { key: "assists", label: "As" },
-  { key: "mvp", label: "Mvp" },
   { key: "stats", label: "" },
 ];
 

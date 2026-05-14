@@ -60,7 +60,6 @@ model MatchPlayerStats {
   goals    Int    @default(0)
   assists  Int    @default(0)
   conceded Int    @default(0)
-  mvp      Int    @default(0)
 }
 
 model User {

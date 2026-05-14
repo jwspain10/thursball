@@ -21,14 +21,13 @@ export default async function MatchPage({ params }: { params: Params }) {
       const {
         goals,
         assists,
-        mvp,
+
         player: { name, lastName },
       } = player;
       return {
         name: getName(name, lastName || "").nameAndInitial,
         goals,
         assists,
-        mvp,
       };
     });
   };
@@ -39,7 +38,6 @@ export default async function MatchPage({ params }: { params: Params }) {
     { key: "name", label: "" },
     { key: "goals", label: "Gs" },
     { key: "assists", label: "As" },
-    { key: "mvp", label: "Mvp" },
   ];
 
   return (

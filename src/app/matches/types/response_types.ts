@@ -3,7 +3,6 @@ export interface IMatchPlayerStatsResponse {
   goals: number;
   id: string;
   matchId: string;
-  mvp: number;
   player: { name: string; lastName: string | null };
   playerId: string;
   teamId: string;

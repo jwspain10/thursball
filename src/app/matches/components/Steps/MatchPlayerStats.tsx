@@ -50,7 +50,6 @@ export default function MatchPlayerStatsForm({
             },
             goals: 0,
             assists: 0,
-            mvp: 0,
           };
         }
       });
@@ -89,12 +88,11 @@ export default function MatchPlayerStatsForm({
 
   const getRows = (selectedPlayers: IMatchPlayerStatsInput[]) => {
     const mappedPlayers = selectedPlayers?.map((player) => {
-      const { goals, assists, mvp } = player;
+      const { goals, assists } = player;
       return {
         name: player.player.name,
         goals,
         assists,
-        mvp,
         stats: (
           <StatsForm
             values={{ ...player, player: { name: player.player.name } }}

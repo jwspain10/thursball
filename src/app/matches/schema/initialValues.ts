@@ -17,11 +17,10 @@ export const initialMatchPlayers: IMatchPlayerIdsInput = {
 export const initialStatsValues = {
   goals: 0,
   assists: 0,
-  mvp: 0,
 };
 
 export const mapMatchDataToMatchForm = (
-  matchData: Match
+  matchData: Match,
 ): IMatchDetailsInput => {
   const { matchDate, team1Id, team2Id, scoreTeam1, scoreTeam2 } = matchData;
   return {

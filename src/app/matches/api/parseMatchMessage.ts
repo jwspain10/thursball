@@ -3,10 +3,11 @@
 import { generateObject } from "ai";
 import { createOpenAI as createGitHubModels } from "@ai-sdk/openai";
 import { z } from "zod";
+import { env } from "../../../../lib/env";
 
 const githubModels = createGitHubModels({
   baseURL: "https://models.inference.ai.azure.com",
-  apiKey: process.env.GITHUB_TOKEN,
+  apiKey: env.GITHUB_TOKEN,
 });
 
 const playerEntrySchema = z.object({
@@ -26,7 +27,6 @@ const playerEntrySchema = z.object({
     ),
   goals: z.number().int(),
   assists: z.number().int(),
-  mvp: z.number().int().min(0).max(1),
 });
 
 const parsedMatchSchema = z.object({
@@ -57,7 +57,7 @@ export async function parseMatchMessage(
     const { object } = await generateObject({
       model: githubModels.chat("gpt-4o"),
       schema: parsedMatchSchema,
-      prompt: `Extract football/soccer match details from this WhatsApp message.
+      prompt: `Extract football/soccer match details from this message.
 
 Known players (id: name):
 ${roster}
@@ -68,7 +68,7 @@ Rules:
 - Set confident=true when the match is obvious.
 - matchedId should be your best guess even when confident=false (it will be shown as a pre-selected suggestion to the user).
 - Set matchedId=null only if no player in the list is a plausible match at all.
-- goals/assists default to 0 if not mentioned. Only one player can have mvp=1.
+- goals/assists default to 0 if not mentioned.
 - nameTeam1/nameTeam2: use actual names from the message (e.g. "Whites", "Darks"). Only use "Team 1"/"Team 2" if truly absent.
 - matchDate in ISO 8601 (YYYY-MM-DD). Today is ${new Date().toISOString().split("T")[0]}.
 

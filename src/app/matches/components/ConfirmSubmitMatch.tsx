@@ -16,10 +16,10 @@ export default function ConfirmSubmitMatch({ onSubmit }: Props) {
     return {
       ...matchDetails,
       team1Players: matchPlayerStats?.filter((player) =>
-        matchPlayerIds?.team1Players.includes(player.playerId)
+        matchPlayerIds?.team1Players.includes(player.playerId),
       ),
       team2Players: matchPlayerStats?.filter((player) =>
-        matchPlayerIds?.team2Players.includes(player.playerId)
+        matchPlayerIds?.team2Players.includes(player.playerId),
       ),
     } as IMatchSubmitInput;
   };
@@ -30,12 +30,11 @@ export default function ConfirmSubmitMatch({ onSubmit }: Props) {
 
   const getRows = (teamPlayers: IMatchPlayerStatsInput[]) => {
     return teamPlayers?.map((player) => {
-      const { goals, assists, mvp } = player;
+      const { goals, assists } = player;
       return {
         name: player.player.name,
         goals,
         assists,
-        mvp,
       };
     });
   };
@@ -44,7 +43,6 @@ export default function ConfirmSubmitMatch({ onSubmit }: Props) {
     { key: "name", label: "" },
     { key: "goals", label: "Gs" },
     { key: "assists", label: "As" },
-    { key: "mvp", label: "Mvp" },
   ];
 
   return (

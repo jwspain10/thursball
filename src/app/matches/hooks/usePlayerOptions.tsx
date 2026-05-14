@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ISelectOptions } from "@/app/types";
-import { fetchAllPlayers } from "@/app/players/api/fetchAllPlayers";
+import { fetchPlayerOptions } from "@/app/players/api/fetchPlayerOptions";
 import { getName } from "@/utils/getName";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +11,7 @@ export const usePlayerOptions = () => {
 
   useEffect(() => {
     const getPlayers = async () => {
-      await fetchAllPlayers().then((players) => {
+      await fetchPlayerOptions().then((players) => {
         const options = players
           .map((player) => ({
             value: player.id,

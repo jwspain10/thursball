@@ -22,11 +22,6 @@ export default function PlayerStatsLoading() {
       value: StatSkeleton(),
       average: StatSkeleton(),
     },
-    {
-      label: "Mvp",
-      value: StatSkeleton(),
-      average: StatSkeleton(),
-    },
   ];
 
   const columns = [

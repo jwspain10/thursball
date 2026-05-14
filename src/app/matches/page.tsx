@@ -5,15 +5,29 @@ import MatchScoreBox from "./components/MatchScoreBox";
 import { auth } from "../../../auth";
 import { getAuthRole } from "@/utils/getAuthRole";
 import MatchDate from "./components/MatchDate";
-import { fetchMatches } from "./api/fetchMatches";
+import { fetchMatches, PAGE_SIZE } from "./api/fetchMatches";
+import ListPagination from "@/components/ListPagination";
 
-export default async function MatchesPage() {
+export default async function MatchesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const currentPage = Math.max(1, Number(pageParam) || 1);
+
   const session = await auth();
   const { isAdmin } = getAuthRole(session);
-  const matches = await fetchMatches();
+  const { matches, total } = await fetchMatches({ page: currentPage });
+
   return (
     <div>
       {isAdmin && <LinkButton link="/matches/add" label="Add Match" />}
+      <ListPagination
+        total={total}
+        pageSize={PAGE_SIZE}
+        currentPage={currentPage}
+      />
       {matches.map((match) => {
         const { id, matchDate, team1, team2, scoreTeam1, scoreTeam2 } = match;
         return (

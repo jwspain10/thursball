@@ -57,7 +57,6 @@ export const createMatch = async (data: IMatchSubmitInput) => {
         playerId: p.playerId,
         goals: p.goals,
         assists: p.assists,
-        mvp: p.mvp,
       })),
       ...team2Players.map((p) => ({
         matchId: match.id,
@@ -65,7 +64,6 @@ export const createMatch = async (data: IMatchSubmitInput) => {
         playerId: p.playerId,
         goals: p.goals,
         assists: p.assists,
-        mvp: p.mvp,
       })),
     ];
 

@@ -10,7 +10,6 @@ type PlayerRecord = {
   draws: number;
   goals: number;
   assists: number;
-  mvps: number;
 };
 
 export const fetchAllPlayerStats = async (): Promise<PlayerRecord[]> => {
@@ -42,7 +41,6 @@ export const fetchAllPlayerStats = async (): Promise<PlayerRecord[]> => {
         draws: 0,
         goals: 0,
         assists: 0,
-        mvps: 0,
       });
     }
     return statsMap.get(player.id)!;
@@ -85,13 +83,12 @@ export const fetchAllPlayerStats = async (): Promise<PlayerRecord[]> => {
       if (team2Result === "draw") rec.draws++;
     }
 
-    // Add goals/assists/mvps from playerStats
+    // Add goals/assists from playerStats
     for (const ps of match.matchPlayerStats) {
       const rec = statsMap.get(ps.playerId);
       if (!rec) continue;
       rec.goals += ps.goals;
       rec.assists += ps.assists;
-      rec.mvps += ps.mvp ?? 0;
     }
   }
 
