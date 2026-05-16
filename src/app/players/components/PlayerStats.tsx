@@ -1,4 +1,4 @@
-import CustomTable from "@/components/CustomTable";
+import CustomTable from "@/components/tables/CustomTable";
 import { fetchPlayerStats } from "../api/fetchPlayerStats";
 import { getAverage } from "@/utils/getAverage";
 

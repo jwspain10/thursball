@@ -21,6 +21,15 @@ jest.mock("@mantine/core", () => ({
   Center: ({ children }: { children?: React.ReactNode }) => (
     <div data-testid="Center">{children}</div>
   ),
+  Stack: ({ children }: { children?: React.ReactNode }) => (
+    <div data-testid="Stack">{children}</div>
+  ),
+  Title: ({ children }: { children?: React.ReactNode }) => (
+    <h1 data-testid="Title">{children}</h1>
+  ),
+  Text: ({ children }: { children?: React.ReactNode }) => (
+    <span data-testid="Text">{children}</span>
+  ),
 }));
 
 const mockAuth = jest.fn();
@@ -39,9 +48,7 @@ describe("HomePage", () => {
     render(await HomePage());
 
     expect(
-      await screen.findByText(
-        `You are currently logged in as ${SESSION_MOCK.ADMIN.user.name} with role ${SESSION_MOCK.ADMIN.user.role}`
-      )
+      await screen.findByText(`Logged in as ${SESSION_MOCK.ADMIN.user.name}`),
     ).toBeInTheDocument();
     expect(screen.queryByTestId("SignOut")).toBeInTheDocument();
     expect(screen.queryByTestId("SignIn")).not.toBeInTheDocument();
@@ -52,9 +59,7 @@ describe("HomePage", () => {
     render(await HomePage());
 
     expect(
-      await screen.findByText(
-        `You are currently logged in as ${SESSION_MOCK.USER.user.name} with role ${SESSION_MOCK.USER.user.role}`
-      )
+      await screen.findByText(`Logged in as ${SESSION_MOCK.USER.user.name}`),
     ).toBeInTheDocument();
     expect(screen.queryByTestId("SignOut")).toBeInTheDocument();
     expect(screen.queryByTestId("SignIn")).not.toBeInTheDocument();
@@ -64,9 +69,6 @@ describe("HomePage", () => {
     mockAuth.mockResolvedValue(null);
 
     render(await HomePage());
-    expect(
-      await screen.findByText("You are not currently logged in")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("SignIn")).toBeInTheDocument();
     expect(screen.queryByTestId("SignOut")).not.toBeInTheDocument();
   });

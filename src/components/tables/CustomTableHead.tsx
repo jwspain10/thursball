@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, TableTh, TableThead, TableTr } from "@mantine/core";
 import { flexRender, Table } from "@tanstack/react-table";
-import CustomIcon from "./CustomIcon";
+import CustomIcon from "../CustomIcon";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import { getPinningStyles } from "@/utils/getPinningStyles";
 
@@ -25,8 +25,25 @@ export default function CustomTableHead<T>({ table }: Props<T>) {
                 key={header.id}
                 style={{
                   ...getPinningStyles(header.column),
-
+                  background: header.column.getIsPinned()
+                    ? "var(--mantine-color-body)"
+                    : undefined,
+                  zIndex: header.column.getIsPinned() ? 3 : undefined,
                   width: header.column.getSize(),
+                  boxShadow:
+                    header.column.columnDef.meta &&
+                    "border" in header.column.columnDef.meta &&
+                    header.column.columnDef.meta.border &&
+                    header.column.getIsPinned()
+                      ? "2px 0 0 0 var(--mantine-color-gray-3)"
+                      : undefined,
+                  borderRight:
+                    header.column.columnDef.meta &&
+                    "border" in header.column.columnDef.meta &&
+                    header.column.columnDef.meta.border &&
+                    !header.column.getIsPinned()
+                      ? "1px solid var(--mantine-color-gray-3)"
+                      : undefined,
                 }}
                 ta={"center"}
               >
@@ -38,7 +55,7 @@ export default function CustomTableHead<T>({ table }: Props<T>) {
                 >
                   {flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
+                    header.getContext(),
                   )}
                   {{
                     asc: <CustomIcon icon={<FaSortUp />} color="pink" />,

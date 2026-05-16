@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTable from "@/components/CustomTable";
+import CustomTable from "@/components/tables/CustomTable";
 import { ISelectOptions } from "@/app/types";
 import { ROLES } from "@/constants";
 import RoleForm from "./RoleForm";

@@ -2,7 +2,7 @@ import FormContainer from "@/components/FormContainer";
 import { useFormContext } from "../providers/FormProvider";
 import { useForm } from "react-hook-form";
 import { IMatchPlayerStatsInput, IMatchSubmitInput } from "../types";
-import CustomTable from "@/components/CustomTable";
+import CustomTable from "@/components/tables/CustomTable";
 
 interface Props {
   onSubmit: (data: IMatchSubmitInput) => void;

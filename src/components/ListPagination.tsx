@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "@mantine/core";
+import { Center, Pagination } from "@mantine/core";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface ListPaginationProps {
@@ -29,11 +29,12 @@ export default function ListPagination({
   if (totalPages <= 1) return null;
 
   return (
-    <Pagination
-      total={totalPages}
-      value={currentPage}
-      onChange={handlePageChange}
-      mt="md"
-    />
+    <Center mt="md" mb="xl">
+      <Pagination
+        total={totalPages}
+        value={currentPage}
+        onChange={handlePageChange}
+      />
+    </Center>
   );
 }

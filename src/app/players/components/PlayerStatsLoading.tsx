@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTable from "@/components/CustomTable";
+import CustomTable from "@/components/tables/CustomTable";
 import { Skeleton } from "@mantine/core";
 
 export default function PlayerStatsLoading() {

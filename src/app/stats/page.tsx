@@ -1,7 +1,9 @@
 import { SubHeader } from "@/components/navigation/SubHeader";
 import { fetchAllPlayerStats } from "./api/fetchAllPlayerStats";
 import { getName } from "@/utils/getName";
-import CustomSortingTable from "@/components/SortingTable";
+import { getPercentage } from "@/utils/getPercentage";
+import { getAverage } from "@/utils/getAverage";
+import CustomSortingTable from "@/components/tables/SortingTable";
 
 export default async function StatsPage() {
   const stats = await fetchAllPlayerStats();
@@ -18,8 +20,13 @@ export default async function StatsPage() {
         wins,
         draws,
         losses,
+        winPct: getPercentage(played, wins, 0),
+        drawPct: getPercentage(played, draws, 0),
+        lossPct: getPercentage(played, losses, 0),
         goals,
         assists,
+        goalsPerGame: getAverage(played, goals),
+        assistsPerGame: getAverage(played, assists),
       };
     });
   };
@@ -31,7 +38,18 @@ export default async function StatsPage() {
     { key: "draws", label: "D" },
     { key: "losses", label: "L", border: true },
     { key: "goals", label: "Gs" },
-    { key: "assists", label: "As", border: true },
+    { key: "goalsPerGame", label: "G/G", size: 55, border: true, dimmed: true },
+    { key: "assists", label: "As" },
+    {
+      key: "assistsPerGame",
+      label: "A/G",
+      size: 55,
+      border: true,
+      dimmed: true,
+    },
+    { key: "winPct", label: "W%", dimmed: true },
+    { key: "drawPct", label: "D%", dimmed: true },
+    { key: "lossPct", label: "L%", dimmed: true },
   ];
 
   return (

@@ -1,20 +1,22 @@
 import SignIn from "@/components/SignIn";
 import SignOut from "@/components/SignOut";
 import { auth } from "../../auth";
-import { Box, Center } from "@mantine/core";
+import { Box, Center, Stack, Title, Text } from "@mantine/core";
 
 export default async function HomePage() {
   const session = await auth();
 
-  const message = session?.user
-    ? `You are currently logged in as ${session.user.name} with role ${session.user.role}`
-    : "You are not currently logged in";
+  const message = session?.user ? `Logged in as ${session.user.name}` : "";
 
   return (
     <Center maw={400}>
-      <Box>
-        {message} {session ? <SignOut /> : <SignIn />}
-      </Box>
+      <Stack align="center" gap="xs">
+        <Title>Thursball</Title>
+        <Box ta="center">
+          <Text>{message}</Text>
+          {session ? <SignOut /> : <SignIn />}
+        </Box>
+      </Stack>
     </Center>
   );
 }

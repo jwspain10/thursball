@@ -4,7 +4,7 @@ import { SubHeader } from "@/components/navigation/SubHeader";
 import MatchDetails from "../components/MatchDetails";
 import { fetchMatch } from "../api/fetchMatch";
 import { IMatchPlayerStatsResponse } from "../types";
-import CustomTable from "@/components/CustomTable";
+import CustomTable from "@/components/tables/CustomTable";
 import { auth } from "../../../../auth";
 import { getAuthRole } from "@/utils/getAuthRole";
 import { getName } from "@/utils/getName";

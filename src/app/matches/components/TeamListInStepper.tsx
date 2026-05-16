@@ -1,4 +1,4 @@
-import CustomTable from "@/components/CustomTable";
+import CustomTable from "@/components/tables/CustomTable";
 import { IMatchPlayerStatsInput } from "../types";
 import CurrentTotals from "./CurrentTotals";
 import BoxContainer from "@/components/BoxContainer";

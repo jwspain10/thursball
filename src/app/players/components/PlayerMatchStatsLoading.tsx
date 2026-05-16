@@ -1,7 +1,7 @@
 "use client";
 
-import CustomTable from "@/components/CustomTable";
-import TableSkeleton from "@/components/TableSkeleton";
+import CustomTable from "@/components/tables/CustomTable";
+import TableSkeleton from "@/components/tables/TableSkeleton";
 
 export default function PlayerMatchStatsLoading() {
   const rows = [
