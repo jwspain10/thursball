@@ -2,7 +2,13 @@ import { ReactNode } from "react";
 import { Table, TableTbody, TableTd, TableThead, TableTr } from "@mantine/core";
 
 type TableRow = Record<string, unknown>;
-type Column = { key: string; label: string };
+type Column = {
+  key: string;
+  label: string;
+  width?: number;
+  border?: boolean;
+  getColor?: (value: unknown) => string | undefined;
+};
 
 interface Props<T extends TableRow> {
   rows: T[];
@@ -28,7 +34,17 @@ export default function CustomTable<T extends TableRow>({
       <TableThead>
         <TableTr ta="center">
           {columns.map((col) => (
-            <th key={String(col.key)}>{String(col.label)}</th>
+            <th
+              key={String(col.key)}
+              style={{
+                width: col.width,
+                borderRight: col.border
+                  ? "2px solid var(--mantine-color-default-border)"
+                  : undefined,
+              }}
+            >
+              {String(col.label)}
+            </th>
           ))}
         </TableTr>
       </TableThead>
@@ -37,11 +53,26 @@ export default function CustomTable<T extends TableRow>({
           <TableTr key={i}>
             {columns.map((col) => {
               const isFirstCol = columns[0].key === col.key;
+              const rawValue = row[col.key];
+              const isBold = typeof rawValue === "number" && rawValue > 0;
+              const customColor = col.getColor?.(rawValue);
+              const dimColor =
+                row._dim && !isFirstCol
+                  ? "var(--mantine-color-dimmed)"
+                  : undefined;
 
               return (
                 <TableTd
                   key={String(col.key)}
                   ta={isFirstCol ? "left" : "center"}
+                  style={{
+                    width: col.width,
+                    borderRight: col.border
+                      ? "2px solid var(--mantine-color-default-border)"
+                      : undefined,
+                    fontWeight: isBold ? "bold" : undefined,
+                    color: customColor ?? dimColor,
+                  }}
                 >
                   {formatValue(row, col)}
                 </TableTd>

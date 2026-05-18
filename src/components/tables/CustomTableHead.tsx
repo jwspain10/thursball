@@ -7,60 +7,63 @@ import { getPinningStyles } from "@/utils/getPinningStyles";
 
 type Props<T> = { table: Table<T> };
 
+const SORT_ICONS = {
+  asc: <CustomIcon icon={<FaSortUp />} color="pink" />,
+  desc: <CustomIcon icon={<FaSortDown />} color="teal" />,
+};
+
 export default function CustomTableHead<T>({ table }: Props<T>) {
   return (
     <TableThead
       style={{
         position: "sticky",
         top: 0,
-        backgroundColor: "var(--mantine-color-body)",
+        backgroundColor:
+          "light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))",
         zIndex: 2,
       }}
     >
       {table.getHeaderGroups().map((headerGroup) => (
         <TableTr key={headerGroup.id}>
           {headerGroup.headers.map((header) => {
+            const { column } = header;
+            const isPinned = column.getIsPinned();
+            const meta = column.columnDef.meta as
+              | { border?: boolean }
+              | undefined;
+            const hasBorder = meta?.border ?? false;
+
             return (
               <TableTh
                 key={header.id}
+                ta="center"
                 style={{
-                  ...getPinningStyles(header.column),
-                  background: header.column.getIsPinned()
-                    ? "var(--mantine-color-body)"
+                  ...getPinningStyles(column),
+                  background: isPinned
+                    ? "light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
                     : undefined,
-                  zIndex: header.column.getIsPinned() ? 3 : undefined,
-                  width: header.column.getSize(),
+                  zIndex: isPinned ? 3 : undefined,
+                  width: column.getSize(),
                   boxShadow:
-                    header.column.columnDef.meta &&
-                    "border" in header.column.columnDef.meta &&
-                    header.column.columnDef.meta.border &&
-                    header.column.getIsPinned()
+                    hasBorder && isPinned
                       ? "2px 0 0 0 var(--mantine-color-gray-3)"
                       : undefined,
                   borderRight:
-                    header.column.columnDef.meta &&
-                    "border" in header.column.columnDef.meta &&
-                    header.column.columnDef.meta.border &&
-                    !header.column.getIsPinned()
+                    hasBorder && !isPinned
                       ? "1px solid var(--mantine-color-gray-3)"
                       : undefined,
                 }}
-                ta={"center"}
               >
                 <Stack
-                  onClick={header.column.getToggleSortingHandler()}
+                  onClick={column.getToggleSortingHandler()}
                   align="center"
                   justify="center"
                   gap="xs"
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
-                  {{
-                    asc: <CustomIcon icon={<FaSortUp />} color="pink" />,
-                    desc: <CustomIcon icon={<FaSortDown />} color="teal" />,
-                  }[header.column.getIsSorted() as string] ?? null}
+                  {flexRender(column.columnDef.header, header.getContext())}
+                  {SORT_ICONS[
+                    column.getIsSorted() as keyof typeof SORT_ICONS
+                  ] ?? null}
                 </Stack>
               </TableTh>
             );
