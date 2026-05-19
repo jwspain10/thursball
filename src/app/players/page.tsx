@@ -1,6 +1,6 @@
 import { LinkButton } from "@/components/navigation/LinkButton";
 import { getCountry } from "@/utils/getCountry";
-import { Avatar, NavLink } from "@mantine/core";
+import { Avatar, Group, NavLink } from "@mantine/core";
 import { fetchAllPlayers } from "./api";
 import { getName } from "@/utils/getName";
 import { auth } from "../../../auth";
@@ -36,7 +36,10 @@ export default async function PlayersPage({
   return (
     <>
       <div>
-        {isAdmin && <LinkButton link="/players/add" label="Add Player" />}
+        <Group justify="space-between" gap="sm">
+          <LinkButton link="/players/stats" label="Stats" />
+          {isAdmin && <LinkButton link="/players/add" label="Add Player" />}
+        </Group>
         <ListPagination total={total} pageSize={10} currentPage={currentPage} />
 
         <Suspense fallback={<PlayersLoading />}>

@@ -10,7 +10,6 @@ export const NAV_LINKS = [
     link: "/matches",
   },
   { label: "Players", link: "/players" },
-  { label: "Stats", link: "/stats" },
   { label: "Admin", link: "/admin", auth: ROLES.ADMIN },
 ];
 

@@ -5,10 +5,5 @@ interface Props {
 }
 
 export default function MatchesLayout({ children }: Props) {
-  return (
-    <div>
-      <h1>Matches</h1>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }

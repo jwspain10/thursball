@@ -6,6 +6,7 @@ import MatchesList from "./components/MatchesList";
 import CustomLoader from "@/components/CustomLoader";
 import { fetchMatchesCount, PAGE_SIZE } from "./api/fetchMatches";
 import ListPagination from "@/components/ListPagination";
+import { Group } from "@mantine/core";
 
 export default async function MatchesPage({
   searchParams,
@@ -20,7 +21,10 @@ export default async function MatchesPage({
 
   return (
     <div>
-      {isAdmin && <LinkButton link="/matches/add" label="Add Match" />}
+      <Group justify="space-between" gap="sm">
+        <LinkButton link="/matches/stats" label="Stats" />
+        {isAdmin && <LinkButton link="/matches/add" label="Add Match" />}
+      </Group>
       <ListPagination
         total={total}
         pageSize={PAGE_SIZE}

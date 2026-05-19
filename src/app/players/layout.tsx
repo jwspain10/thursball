@@ -5,10 +5,5 @@ interface Props {
 }
 
 export default function PlayersLayout({ children }: Props) {
-  return (
-    <div>
-      <h1>Players</h1>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }

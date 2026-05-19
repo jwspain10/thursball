@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { BackButton } from "./BackButton";
 
 interface Props {
@@ -10,9 +10,9 @@ interface Props {
 export const SubHeader = ({ children, goBack, button }: Props) => {
   return (
     <Group justify="space-between" gap="xs">
-      <Group gap="xs">
+      <Group gap="xs" mb={20}>
         {goBack && <BackButton />}
-        <h2>{children}</h2>
+        <Text size="md"> {children}</Text>
       </Group>
       <div>{button}</div>
     </Group>

@@ -54,7 +54,7 @@ export default async function StatsPage() {
 
   return (
     <div>
-      <SubHeader goBack>All Stats</SubHeader>
+      <SubHeader goBack>Player Stats</SubHeader>
       {stats && <CustomSortingTable data={getRows()} columns={columns} />}
     </div>
   );
