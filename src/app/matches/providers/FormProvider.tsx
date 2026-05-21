@@ -8,6 +8,9 @@ import { initialMatchPlayers, initialMatchValues } from "../schema";
 
 interface Props {
   children: React.ReactElement;
+  initialDetails?: IMatchDetailsInput;
+  initialPlayerIds?: IMatchPlayerIdsInput;
+  initialPlayerStats?: IMatchPlayerStatsInput[];
 }
 
 // 1. Create context
@@ -25,14 +28,21 @@ interface FormContextType {
 const FormContext = createContext<FormContextType | null>(null);
 
 // 2. Provider component
-export const FormProvider = ({ children }: Props) => {
-  const [matchDetails, setMatchDetails] =
-    useState<IMatchDetailsInput>(initialMatchValues);
-  const [matchPlayerIds, setMatchPlayerIds] =
-    useState<IMatchPlayerIdsInput>(initialMatchPlayers);
+export const FormProvider = ({
+  children,
+  initialDetails,
+  initialPlayerIds,
+  initialPlayerStats,
+}: Props) => {
+  const [matchDetails, setMatchDetails] = useState<IMatchDetailsInput>(
+    initialDetails ?? initialMatchValues,
+  );
+  const [matchPlayerIds, setMatchPlayerIds] = useState<IMatchPlayerIdsInput>(
+    initialPlayerIds ?? initialMatchPlayers,
+  );
   const [matchPlayerStats, setMatchPlayerStats] = useState<
     IMatchPlayerStatsInput[]
-  >([]);
+  >(initialPlayerStats ?? []);
 
   return (
     <FormContext.Provider

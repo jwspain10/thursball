@@ -6,13 +6,18 @@ import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import CustomModal from "@/components/CustomModal";
 import { SubHeader } from "@/components/navigation/SubHeader";
-import { fetchMatch, deleteMatch } from "../../api";
-import { initialMatchValues, mapMatchDataToMatchForm } from "../../schema";
-import { IMatchDetailsInput } from "../../types";
+import { fetchMatch, deleteMatch, updateMatch } from "../../api";
+import { mapMatchResponseToSubmitInput } from "../../schema";
+import { IMatchSubmitInput } from "../../types";
 import CustomLoader from "@/components/CustomLoader";
+import FormStepper from "../../components/FormStepper";
 
 export default function EditMatchPage() {
-  const [values, setValues] = useState<IMatchDetailsInput | null>(null);
+  const [initialValues, setInitialValues] = useState<IMatchSubmitInput | null>(
+    null,
+  );
+  const [team1Id, setTeam1Id] = useState("");
+  const [team2Id, setTeam2Id] = useState("");
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -21,9 +26,9 @@ export default function EditMatchPage() {
     fetchMatch(id)
       .then((data) => {
         if (data) {
-          setValues(mapMatchDataToMatchForm(data));
-        } else {
-          setValues({ ...initialMatchValues });
+          setInitialValues(mapMatchResponseToSubmitInput(data));
+          setTeam1Id(data.team1Id);
+          setTeam2Id(data.team2Id);
         }
       })
       .catch((error) => {
@@ -34,28 +39,27 @@ export default function EditMatchPage() {
       });
   }, [id]);
 
-  // const onSubmit = (data: IMatchInput) => {
-  //   setLoading(true);
-
-  //   updateMatch(id, data)
-  //     .then(() => {
-  //       notifications.show({
-  //         title: "Success",
-  //         message: "Match updated successfully",
-  //         color: "green",
-  //       });
-  //       router.push("/matches");
-  //     })
-  //     .catch((error) => {
-  //       console.error("client error", error);
-  //       setLoading(false);
-  //       notifications.show({
-  //         title: "Error",
-  //         message: "Something went wrong while updating the match",
-  //         color: "red",
-  //       });
-  //     });
-  // };
+  const onSubmit = (data: IMatchSubmitInput) => {
+    setLoading(true);
+    updateMatch({ id, team1Id, team2Id, data })
+      .then(() => {
+        notifications.show({
+          title: "Success",
+          message: "Match updated successfully",
+          color: "green",
+        });
+        router.push("/matches");
+      })
+      .catch((error) => {
+        console.error("client error", error);
+        setLoading(false);
+        notifications.show({
+          title: "Error",
+          message: "Something went wrong while updating the match",
+          color: "red",
+        });
+      });
+  };
 
   const onDelete = async () => {
     setLoading(true);
@@ -102,12 +106,10 @@ export default function EditMatchPage() {
       >
         Edit Match
       </SubHeader>
-      {!loading && values ? (
-        <>
-          {/* <MatchForm values={values} playerOptions={[]} onSubmit={onSubmit} /> */}
-        </>
+      {!loading && initialValues ? (
+        <FormStepper onSubmit={onSubmit} initialValues={initialValues} />
       ) : (
-        <CustomLoader label="Deleting Match" />
+        <CustomLoader label="Loading match..." />
       )}
     </>
   );
