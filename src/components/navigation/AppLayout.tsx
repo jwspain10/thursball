@@ -19,7 +19,7 @@ interface Props {
 export function AppLayout({ children }: Props) {
   const [opened, { toggle }] = useDisclosure();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const section = pathname.split("/")[1];
   const title = PAGE_TITLES[section] ?? "";
 
@@ -44,7 +44,7 @@ export function AppLayout({ children }: Props) {
               </Text>
             )}
           </Group>
-          {session?.user?.image && (
+          {status === "authenticated" && session?.user?.image && (
             <Avatar
               src={session.user.image}
               alt={session.user.name ?? "User"}

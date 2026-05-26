@@ -1,17 +1,12 @@
+"use client";
+
 import { Button } from "@mantine/core";
-import { signOut } from "../../auth";
+import { signOut } from "next-auth/react";
 
 export default function SignOut() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut();
-      }}
-    >
-      <Button type="submit" color="pink">
-        Sign out
-      </Button>
-    </form>
+    <Button onClick={() => signOut()} color="pink">
+      Sign out
+    </Button>
   );
 }
