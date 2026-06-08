@@ -9,7 +9,7 @@ describe("getAverage", () => {
   it("returns correct average for positive numbers", () => {
     expect(getAverage(4, 2)).toBe(0.5);
     expect(getAverage(10, 7)).toBe(0.7);
-    expect(getAverage(3, 1)).toBe(0.33);
+    expect(getAverage(3, 1)).toBe(0.3);
   });
 
   it("returns negative average when value is negative", () => {
@@ -17,8 +17,8 @@ describe("getAverage", () => {
   });
 
   it("handles floating point values correctly", () => {
-    expect(getAverage(3, 2)).toBe(0.67);
-    expect(getAverage(7, 3)).toBe(0.43);
+    expect(getAverage(3, 2)).toBe(0.7);
+    expect(getAverage(7, 3)).toBe(0.4);
   });
 
   it("returns 0 when value is 0 and total is positive", () => {

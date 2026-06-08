@@ -5,6 +5,8 @@ import { getPercentage } from "@/utils/getPercentage";
 import { getAverage } from "@/utils/getAverage";
 import CustomSortingTable from "@/components/tables/SortingTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function StatsPage() {
   const stats = await fetchAllPlayerStats();
 

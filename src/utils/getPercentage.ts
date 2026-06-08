@@ -1,7 +1,7 @@
 export const getPercentage = (
   total: number,
   value: number,
-  fixed: number = 2,
+  fixed: number = 1,
 ): number => {
   if (total === 0) {
     return 0;

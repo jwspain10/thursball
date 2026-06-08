@@ -21,8 +21,8 @@ describe("getPercentage", () => {
   });
 
   it("returns value rounded to two decimal places", () => {
-    expect(getPercentage(3, 1)).toBe(33.33);
-    expect(getPercentage(3, 2)).toBe(66.67);
-    expect(getPercentage(7, 1)).toBe(14.29);
+    expect(getPercentage(3, 1)).toBe(33.3);
+    expect(getPercentage(3, 2)).toBe(66.7);
+    expect(getPercentage(7, 1)).toBe(14.3);
   });
 });
