@@ -24,8 +24,9 @@ export const fetchTeamStats = async () => {
   const statsMap = new Map<string, TeamStat>();
 
   const getOrCreate = (name: string): TeamStat => {
-    if (!statsMap.has(name)) {
-      statsMap.set(name, {
+    const key = name.trim().toLowerCase();
+    if (!statsMap.has(key)) {
+      statsMap.set(key, {
         played: 0,
         wins: 0,
         draws: 0,
@@ -34,7 +35,7 @@ export const fetchTeamStats = async () => {
         goalsAgainst: 0,
       });
     }
-    return statsMap.get(name)!;
+    return statsMap.get(key)!;
   };
 
   for (const match of matches) {

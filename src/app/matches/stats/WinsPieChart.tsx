@@ -32,7 +32,7 @@ const renderLabel = ({
       x={x}
       y={y}
       fill={
-        name === "Darks"
+        name === "darks"
           ? "#fff"
           : "var(--chart-label-color, var(--mantine-color-dimmed))"
       }
@@ -52,8 +52,8 @@ type TeamStat = {
 };
 
 const TEAM_COLORS: Record<string, string> = {
-  Darks: "dark.5",
-  Lights: "gray.0",
+  darks: "dark.5",
+  lights: "gray.0",
 };
 
 function getColor(name: string, index: number): string {

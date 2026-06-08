@@ -7,7 +7,7 @@ export default async function MatchesStatsPage() {
   const stats = await fetchTeamStats();
 
   const rows = Object.entries(stats).map(([teamName, stat]) => ({
-    name: teamName,
+    name: teamName.charAt(0).toUpperCase() + teamName.slice(1),
     played: stat.played,
     wins: stat.wins,
     draws: stat.draws,
